@@ -138,10 +138,11 @@ const Users = ({ users, deleted, setDeleted }) => {
                             View
                           </Button>
                         </Link>
-                        {role == "admin" ? (
+                        {id === "1" ? (
                           <Button
                             color="cyan"
                             onClick={() => toggle({ role, id })}
+                            disabled
                           >
                             Make it User
                           </Button>
@@ -153,13 +154,19 @@ const Users = ({ users, deleted, setDeleted }) => {
                             Make it Admin
                           </Button>
                         )}
-
-                        <Button
+                        {id === "1" ?<Button
                           color="blue"
                           onClick={() => deleteUser({ name, id })}
+                          disabled
                         >
                           DELETE
-                        </Button>
+                        </Button> : <Button
+                          color="blue"
+                          onClick={() => deleteUser({ name, id })}
+                          
+                        >
+                          DELETE
+                        </Button>}
                       </div>
                     </td>
                   </tr>
