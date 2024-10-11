@@ -1,19 +1,19 @@
 import React from "react";
 import AdminHeader from "./components/AdminHeader";
+import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/admin/NotFound";
 import ViewProduct from "./pages/admin/product/ViewProduct";
 import AddProducts from './pages/admin/product/AddProducts'
 import EditProduct from "./pages/admin/product/EditProduct";
 import Products from "./pages/admin/product/Products";
+import { Button } from "@material-tailwind/react";
 import Users from "./pages/admin/user/Users";
 import ViewUser from "./pages/admin/user/ViewUser"
 import EditUser from "./pages/admin/user/EditUser"
 import AddUsers from "./pages/admin/user/AddUsers";
-import { Button } from "@material-tailwind/react";
-import { Link, Route, Routes } from "react-router-dom";
 
-const LayoutAdmin = () => {
+const LayoutAdmin = ({ users ,setUsers , products, user,product, setProducts, deleted, setDeleted , productDetails , setProductDetails, userDetails, setUserDetails }) => {
   
 
   return (
@@ -32,19 +32,19 @@ const LayoutAdmin = () => {
       </ul>
       <Routes>
           {/*Route for Main Dashboard page */}
-          <Route path= "/" element={<Dashboard />}/>
+          <Route path= "/" element={<Dashboard user ={user} users= {users}  product={product} products={products}/>}/>
           
           {/* Routes for Product >> pages*/}
-          <Route path= "/products" element={<Products />}/>
-          <Route path = "/viewProduct/:productId" element = {<ViewProduct />}/>
-          <Route path = "/editProduct/:productId" element = {<EditProduct />}/>
-          <Route path = "/addProduct" element = {<AddProducts />}/>
+          <Route path= "/products" element={<Products products={products} deleted={deleted} setDeleted={setDeleted}/>}/>
+          <Route path = "/viewProduct/:productId" element = {<ViewProduct setProductDetails={setProductDetails} productDetails={productDetails}/>}/>
+          <Route path = "/editProduct/:productId" element = {<EditProduct  deleted={deleted} setDeleted={setDeleted}/>}/>
+          <Route path = "/addProduct" element = {<AddProducts deleted={deleted} setDeleted={setDeleted}/>}/>
           
           {/* Route for User >> pages*/}
-          <Route path = "/users" element = {<Users />}/>
-          <Route path = "/viewUser/:userId" element = {<ViewUser />}/>
-          <Route path = "/editUser/:userId" element = {<EditUser />}/>
-          <Route path = "/addUser" element = {<AddUsers/>}/>
+          <Route path = "/users" element = {<Users users={users} deleted={deleted} setDeleted={setDeleted}/>}/>
+          <Route path = "/viewUser/:userId" element = {<ViewUser setUserDetails={setUserDetails} userDetails={userDetails}/>}/>
+          <Route path = "/editUser/:userId" element = {<EditUser  deleted={deleted} setDeleted={setDeleted}/>}/>
+          <Route path = "/addUser" element = {<AddUsers deleted={deleted} setDeleted={setDeleted}/>}/>
 
           {/* Route for NotFound page*/}
           <Route path="/NotFound" element={<NotFound />} />
