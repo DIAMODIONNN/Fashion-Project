@@ -32,13 +32,13 @@ const LayoutAdmin = ({ users ,setUsers , products, user,product, setProducts, de
       </ul>
       <Routes>
           {/*Route for Main Dashboard page */}
-          <Route path= "/" element={<Dashboard />}/>
+          <Route path= "/" element={<Dashboard user ={user} users= {users}  product={product} products={products}/>}/>
           
           {/* Routes for Product >> pages*/}
-          <Route path= "/products" element={<Products />}/>
-          <Route path = "/viewProduct/:productId" element = {<ViewProduct />}/>
-          <Route path = "/editProduct/:productId" element = {<EditProduct  />}/>
-          <Route path = "/addProduct" element = {<AddProducts />}/>
+          <Route path= "/products" element={<Products products={products} deleted={deleted} setDeleted={setDeleted}/>}/>
+          <Route path = "/viewProduct/:productId" element = {<ViewProduct setProductDetails={setProductDetails} productDetails={productDetails}/>}/>
+          <Route path = "/editProduct/:productId" element = {<EditProduct  deleted={deleted} setDeleted={setDeleted}/>}/>
+          <Route path = "/addProduct" element = {<AddProducts deleted={deleted} setDeleted={setDeleted}/>}/>
           
           {/* Route for User >> pages*/}
           <Route path = "/users" element = {<Users users={users} deleted={deleted} setDeleted={setDeleted}/>}/>
