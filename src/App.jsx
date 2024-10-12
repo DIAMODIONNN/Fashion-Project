@@ -5,10 +5,10 @@ import LayoutAdmin from "./LayoutAdmin";
 
 const App = () => {
   return (
-    <div className="text-center">
+    <div className="text-center  dark:bg-[#424242] ">
       <Routes>
         <Route path="/*" element={<LayoutUser />} />
-        <Route path="/admin/*"element={<LayoutAdmin/>}/>
+        <Route path="/admin/*" element={<LayoutAdmin />} />
       </Routes>
     </div>
   );
