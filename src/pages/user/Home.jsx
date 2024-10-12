@@ -1,9 +1,43 @@
-import React from 'react'
-
+import React from "react";
+import myImg from "./img/hero/hero-1.jpg";
+import { NavLink } from "react-router-dom";
+import { Typography } from "@material-tailwind/react";
+import Hero2 from "./Hero2";
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <div className="flex flex-col items-start text-left justify-center h-full gap-4">
+      <div>
+        <img src={myImg} alt="" className="w-full h-screen object-cover" />
 
-export default Home
+        <div className="absolute left-6 top-1/3 p-8 bg-opacity-75 flex flex-col lg:w-1/3 items-start gap-6 ">
+          <h1 className="font-bold text-[#229799] font-sans ">
+            SUMMER COLLECTION
+          </h1>
+          <h1 className="text-5xl opacity-70 ">
+            Fall - Winter Collections 2023
+          </h1>
+
+          <p className="text-sm opacity-70 font-sans">
+            A specialist label creating luxury essentials. Ethically crafted
+            with an unwavering commitment to exceptional quality.
+          </p>
+
+          <Typography
+            as={NavLink}
+            variant="small"
+            color="blue-gray"
+            to="/Shop"
+            className="p-1 font-medium"
+          >
+            <button className="bg-[#48CFCB] text-gray-800  dark:bg-[#424242] dark:text-white py-2 px-4 rounded">
+              SHOP NOW
+            </button>
+          </Typography>
+        </div>
+      </div>
+      <Hero2 />
+    </div>
+  );
+};
+
+export default Home;

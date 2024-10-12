@@ -6,6 +6,7 @@ import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
 import Shop from "./pages/user/Shop";
 import Cart from "./pages/user/Cart";
+import Footer from "./components/Footer";
 
 const LayoutUser = ({
   products,
@@ -51,6 +52,7 @@ const LayoutUser = ({
         />
         <Route path="/*" element={<Home />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

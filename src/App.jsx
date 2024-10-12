@@ -104,7 +104,7 @@ const App = () => {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center  dark:bg-[#424242] ">
       <Routes>
         <Route
           path="/*"
@@ -131,7 +131,12 @@ const App = () => {
               product={product}
               setProducts={setProducts}
               deleted={deleted}
+              deleted={deleted}
               setDeleted={setDeleted}
+              productDetails={productDetails}
+              setProductDetails={setProductDetails}
+              userDetails={userDetails}
+              setUserDetails={setUserDetails}
               productDetails={productDetails}
               setProductDetails={setProductDetails}
               userDetails={userDetails}
