@@ -131,12 +131,7 @@ const App = () => {
               product={product}
               setProducts={setProducts}
               deleted={deleted}
-              deleted={deleted}
               setDeleted={setDeleted}
-              productDetails={productDetails}
-              setProductDetails={setProductDetails}
-              userDetails={userDetails}
-              setUserDetails={setUserDetails}
               productDetails={productDetails}
               setProductDetails={setProductDetails}
               userDetails={userDetails}
