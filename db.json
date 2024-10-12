@@ -14,7 +14,7 @@
       "name": "what",
       "email": "what@gmail.com",
       "password": "123",
-      "role": "admin",
+      "role": "user",
       "gender": "Male",
       "img": "https://cdn.pixabay.com/photo/2021/10/20/14/00/stars-6726176_1280.jpg"
     },

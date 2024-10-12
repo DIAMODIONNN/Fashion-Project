@@ -146,14 +146,22 @@ const Users = ({ users, deleted, setDeleted }) => {
                           >
                             Make it User
                           </Button>
-                        ) : (
+                        ): role === "admin" ? (
                           <Button
-                            color="deep-purple"
+                            color="cyan"
                             onClick={() => toggle({ role, id })}
                           >
-                            Make it Admin
+                            Make it User
                           </Button>
+                        ) : (
+                          <Button
+                          color="deep-purple"
+                          onClick={() => toggle({ role, id })}
+                        >
+                          Make it Admin
+                        </Button>
                         )}
+
                         {id === "1" ?<Button
                           color="blue"
                           onClick={() => deleteUser({ name, id })}
