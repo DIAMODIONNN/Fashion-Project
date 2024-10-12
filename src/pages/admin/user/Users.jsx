@@ -31,14 +31,14 @@ const Users = ({ users, deleted, setDeleted }) => {
           title: "Role Changed",
           icon: "success",
         })
+        axios({
+          method : 'patch',
+          url : `http://localhost:3000/users/${id}`,
+          data : {
+            role : role === "admin" ? "user" : "admin"
+          }
+        }).then(_=> setDeleted(!deleted));
       }
-      axios({
-        method : 'patch',
-        url : `http://localhost:3000/users/${id}`,
-        data : {
-          role : role === "admin" ? "user" : "admin"
-        }
-      }).then(_=> setDeleted(!deleted));
     })
   };
   const deleteUser = ({ name, id }) => {
@@ -141,7 +141,7 @@ const Users = ({ users, deleted, setDeleted }) => {
                         {id === "1" ? (
                           <Button
                             color="cyan"
-                            onClick={() => toggle({ role, id })}
+                            onClick= { () => toggle({ role, id })}
                             disabled
                           >
                             Make it User
