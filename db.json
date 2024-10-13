@@ -35,6 +35,34 @@
       "role": "user",
       "gender": "Female",
       "img": "https://docs.material-tailwind.com/img/team-3.jpg"
+    },
+    {
+      "id": "7652",
+      "name": "alaa",
+      "email": "alaa@gmail.com",
+      "password": "123456789",
+      "gender": "Male"
+    },
+    {
+      "id": "5bb4",
+      "name": "ahmed",
+      "email": "ahmed@gmail.com",
+      "password": "123456789",
+      "gender": "Male"
+    },
+    {
+      "id": "9b05",
+      "name": "nehal123",
+      "email": "nahla@example.com",
+      "password": "123456789",
+      "gender": "Male"
+    },
+    {
+      "id": "36bb",
+      "name": "amr",
+      "email": "amr@gmail.com",
+      "password": "123456789",
+      "gender": "Male"
     }
   ],
   "products": [

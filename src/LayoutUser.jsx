@@ -6,7 +6,7 @@ import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
 import Shop from "./pages/user/Shop";
 import Cart from "./pages/user/Cart";
-
+import UserProfile from "./pages/user/UserProfile";
 const LayoutUser = ({
   products,
   setProducts,
@@ -15,6 +15,9 @@ const LayoutUser = ({
   addToCart,
   cartItems,
   setCartItems,
+  loggedInUser,
+  handleLogin,
+  setLoggedInUser,
 }) => {
   return (
     <div>
@@ -34,7 +37,6 @@ const LayoutUser = ({
             />
           }
         />
-        <Route path="/login" element={<Login users={users} />} />
         <Route
           path="/signup"
           element={<Signup addUser={addUser} users={users} />}
@@ -50,6 +52,19 @@ const LayoutUser = ({
           }
         />
         <Route path="/*" element={<Home />} />
+        <Route
+          path="/login"
+          element={<Login users={users} handleLogin={handleLogin} />} //neww props
+        />
+        <Route
+          path="/profile"
+          element={
+            <UserProfile
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+          } //new propss and Route
+        />
       </Routes>
     </div>
   );

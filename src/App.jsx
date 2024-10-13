@@ -8,6 +8,8 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [users, setUsers] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/products")
@@ -16,6 +18,7 @@ const App = () => {
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
+
   const getUsers = async () => {
     try {
       const response = await axios.get("http://localhost:3000/users");
@@ -46,6 +49,7 @@ const App = () => {
   useEffect(() => {
     getUsers();
   }, []);
+
   const addToCart = (product) => {
     setCartItems((prevItems) => {
       const itemExists = prevItems.find((item) => item.id === product.id);
@@ -71,6 +75,18 @@ const App = () => {
     });
   };
 
+  const handleLogin = (user) => {
+    setLoggedInUser(user);
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+  };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser) {
+      setLoggedInUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
     <div className="text-center">
       <Routes>
@@ -85,6 +101,9 @@ const App = () => {
               addToCart={addToCart}
               cartItems={cartItems}
               setCartItems={setCartItems}
+              handleLogin={handleLogin}
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
             />
           }
         />
