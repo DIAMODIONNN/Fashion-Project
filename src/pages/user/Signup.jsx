@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Input,
@@ -39,15 +39,15 @@ const SignUp = ({ addUser, users }) => {
     const newErrors = { name: "", email: "", password: "", gender: "" };
 
     if (User.name.trim() === "" || User.name.length < 3) {
-      newErrors.name = "Name is required.";
+      newErrors.name = "Name is required and should be at least 3 characters.";
       hasError = true;
     }
     if (User.email === "" || !validateEmail(User.email)) {
-      newErrors.email = "Email is required.";
+      newErrors.email = "Valid email is required.";
       hasError = true;
     }
     if (User.password === "" || User.password.length < 6) {
-      newErrors.password = "Password is required.";
+      newErrors.password = "Password must be at least 6 characters.";
       hasError = true;
     }
     if (User.gender === "") {
@@ -85,7 +85,7 @@ const SignUp = ({ addUser, users }) => {
         </Typography>
         {accountExists && (
           <Typography className="text-red-500 mb-0 text-center" color="red">
-            Account already exists.
+            Email or Username already exists.
           </Typography>
         )}
         <form
@@ -102,15 +102,27 @@ const SignUp = ({ addUser, users }) => {
                 errors.name || accountExists ? "border-red-500" : ""
               } ${"bg-white text-black"}`}
             />
+            {errors.name && (
+              <Typography className="text-red-500 text-start">
+                {errors.name}
+              </Typography>
+            )}
+
             <Select
               label="Gender"
               error={!!errors.gender || accountExists}
-              onChange={(e) => setUser({ ...User, gender: e })}
+              onChange={(value) => setUser({ ...User, gender: value })}
               className={"bg-white text-black"}
             >
               <Option value="Male">Male</Option>
               <Option value="Female">Female</Option>
             </Select>
+            {errors.gender && (
+              <Typography className="text-red-500 text-start">
+                {errors.gender}
+              </Typography>
+            )}
+
             <Input
               label="User Mail"
               value={User.email}
@@ -120,6 +132,12 @@ const SignUp = ({ addUser, users }) => {
                 errors.email || accountExists ? "border-red-500" : ""
               } ${"bg-white text-black"}`}
             />
+            {errors.email && (
+              <Typography className="text-red-500 text-start">
+                {errors.email}
+              </Typography>
+            )}
+
             <Input
               label="Password"
               type="password"
@@ -130,6 +148,11 @@ const SignUp = ({ addUser, users }) => {
                 errors.password || accountExists ? "border-red-500" : ""
               } ${"bg-white text-black"}`}
             />
+            {errors.password && (
+              <Typography className="text-red-500 text-start">
+                {errors.password}
+              </Typography>
+            )}
           </div>
 
           <Button
