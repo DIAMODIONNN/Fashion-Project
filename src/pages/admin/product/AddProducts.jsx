@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Input,
@@ -9,7 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddProducts = ({setDeleted , deleted}) => {
+const AddProducts = ({ setDeleted, deleted }) => {
   const [product, setProduct] = useState({
     title: "",
     price: "",
@@ -21,116 +21,182 @@ const AddProducts = ({setDeleted , deleted}) => {
       count: "",
     },
   });
+
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const validateInputs = () => {
+
+    if (!product.title || product.title.length < 3) {
+      return { title: "Title must be at least 3 characters long" };
+    }else if (!product.price || isNaN(product.price) || product.price <= 0) {
+      return { price: "Please enter a valid price." };
+    } else if (!product.description || product.description.length < 5) {
+      return { description: "Description should be at least 5 characters long." };
+    } else if(!product.category) {
+      return { category: "Category cannot be empty." };
+    } else if (!product.image ) {
+      return { image: "Please provide a valid image URL." };
+    } else if (!product.rating.rate || isNaN(product.rating.rate) || product.rating.rate < 0 || product.rating.rate > 5) {
+      return { rate: "Rate must be a number between 0 and 5." };
+    } else if (!product.rating.count || isNaN(product.rating.count) || product.rating.count <= 0) {
+      return { count: "Count must be a positive number." };
+    }
+
+    // If all validations pass means no error
+    return {};
+  };
+
   const addNew = (e) => {
     e.preventDefault();
-
-    if (true) {
+    const validationErrors = validateInputs();
+    if (Object.keys(validationErrors).length === 0) {
       axios({
         method: "post",
         url: `http://localhost:3000/products`,
         data: product,
-      }).then(_=>{
-        setDeleted(!deleted)
+      }).then(() => {
+        setDeleted(!deleted);
         Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "The New Product Added Successfully",
-            showConfirmButton: false,
-            timer: 2000
-          }).then(_=>navigate('/admin/products'));
-      }
-    )}
+          position: "center",
+          icon: "success",
+          title: "The New Product Added Successfully",
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => navigate('/admin/products'));
+      });
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   return (
-    <div className="flex flex-col gap-[4em] justify-center items-center pt-8">
-      <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color="blue-gray">
-          Add New Products
+    <div className="flex justify-center items-center">
+      <Card color="transparent" shadow={false} className="p-6 bg-white max-w-lg w-full rounded-lg shadow-lg mt-6">
+        <Typography variant="h4" color="blue-gray" className="text-center mb-4">
+          Add New Product
         </Typography>
-        <Typography color="gray" className="mt-1 font-normal">
-          Nice to meet you! Enter your details about the new product.
+        <Typography color="gray" className="text-center mb-8">
+          Fill in the details of the new product.
         </Typography>
-        <form
-          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-          onSubmit={addNew}
-        >
-          <div className="mb-1 flex flex-col gap-6">
-            <Input
-              label="title"
-              className="bg-white"
-              value={product.title}
-              onChange={(e) =>
-                setProduct({ ...product, title: e.target.value })
-              }
-            />
-            <Input
-              label="price"
-              className="bg-white"
-              type="number"
-              value={product.price}
-              onChange={(e) =>
-                setProduct({ ...product, price: e.target.value })
-              }
-            />
-            <Input
-              label="description"
-              className="bg-white"
-              value={product.description}
-              onChange={(e) =>
-                setProduct({ ...product, description: e.target.value })
-              }
-            />
-            <Input
-              label="category"
-              className="bg-white"
-              value={product.category}
-              onChange={(e) =>
-                setProduct({ ...product, category: e.target.value })
-              }
-            />
-            <Input
-              label="image"
-              className="bg-white"
-              type="url"
-              value={product.image}
-              onChange={(e) =>
-                setProduct({ ...product, image: e.target.value })
-              }
-            />
-            <Input
-              label="rate"
-              type="number"
-              className="bg-white"
-              value={product.rating.rate}
-              onChange={(e) =>
-                setProduct({
-                  ...product,
-                  rating: { ...product.rating, rate: e.target.value },
-                })
-              }
-            />
-            <Input
-              label="count"
-              className="bg-white"
-              type="number"
-              value={product.rating.count}
-              onChange={(e) =>
-                setProduct({
-                  ...product,
-                  rating: { ...product.rating, count: e.target.value },
-                })
-              }
-            />
+        <form className="space-y-6" onSubmit={addNew}>
+          <div className="space-y-4">
+            
+            <div>
+              <Input
+                label="Title"
+                className="bg-white"
+                value={product.title}
+                error = {errors.title}
+                onChange={(e) => setProduct({ ...product, title: e.target.value })}
+              />
+              {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+            </div>
+
+            
+            <div>
+              <Input
+                label="Price"
+                className="bg-white"
+                value={product.price}
+                error={errors.price}
+                onChange={(e) => setProduct({ ...product, price: e.target.value })}
+              />
+              {errors.price && !errors.title && (
+                <p className="text-red-500 text-sm mt-1">{errors.price}</p>
+              )}
+            </div>
+
+            
+            <div>
+              <Input
+                label="Description"
+                className="bg-white"
+                value={product.description}
+                error={errors.description }
+                onChange={(e) => setProduct({ ...product, description: e.target.value })}
+              />
+              {errors.description && !errors.title && !errors.price && (
+                <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+              )}
+            </div>
+
+           
+            <div>
+              <Input
+                label="Category"
+                className="bg-white"
+                value={product.category}
+                error={errors.category}
+                onChange={(e) => setProduct({ ...product, category: e.target.value })}
+              />
+              {errors.category && !errors.title && !errors.price && !errors.description && (
+                <p className="text-red-500 text-sm mt-1">{errors.category}</p>
+              )}
+            </div>
+
+           
+            <div>
+              <Input
+                label="Image"
+                className="bg-white"
+                type="url"
+                value={product.image}
+                error={errors.image}
+                onChange={(e) => setProduct({ ...product, image: e.target.value })}
+              />
+              {errors.image && !errors.title && !errors.price && !errors.description && !errors.category && (
+                  <p className="text-red-500 text-sm mt-1">{errors.image}</p>
+                )}
+            </div>
+
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <Input
+                  label="Rate"
+                  className="bg-white"
+                  value={product.rating.rate}
+                  error={errors.rate}
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      rating: { ...product.rating, rate: e.target.value },
+                    })
+                  }
+                />
+                {errors.rate && !errors.title && !errors.price && !errors.description && !errors.category && !errors.image && (
+                    <p className="text-red-500 text-sm mt-1">{errors.rate}</p>
+                  )}
+              </div>
+
+              <div>
+                <Input
+                  label="Count"
+                  className="bg-white"
+                  value={product.rating.count}
+                  error= {errors.count }
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      rating: { ...product.rating, count: e.target.value },
+                    })
+                  }
+                />
+                {errors.count && !errors.title && !errors.price && !errors.description && !errors.category && !errors.image && !errors.rate && (
+                    <p className="text-red-500 text-sm mt-1">{errors.count}</p>
+                  )}
+              </div>
+            </div>
           </div>
-          <div className='flex justify-center items-center gap-5'>
-            <Button className="mt-6" fullWidth type="submit">
-             Confirm
+
+          <div className="flex justify-center items-center gap-4">
+            <Button className="w-full" type="submit">
+              Confirm
             </Button>
-            <Button onClick={() => navigate(-1)} color="cyan" className="mt-6">
-            BACK
-          </Button>
+            <Button color="cyan" onClick={() => navigate(-1)}>
+              Back
+            </Button>
           </div>
         </form>
       </Card>

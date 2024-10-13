@@ -56,7 +56,7 @@
       "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
       "rating": {
         "rate": 3.9,
-        "count": 120
+        "count": "120"
       }
     },
     {
@@ -295,7 +295,7 @@
       "category": "drinks",
       "image": "https://mcprod.hyperone.com.eg/media/catalog/product/cache/1ca275941aea0ae98b372dcb44b7c67a/6/2/6225000381643-330ml.jpg",
       "rating": {
-        "rate": "7",
+        "rate": "5",
         "count": "111"
       }
     },
@@ -307,7 +307,7 @@
       "category": "Headphones",
       "image": "https://m.media-amazon.com/images/I/71KcT66ENcL.AC_UF894,1000_QL80.jpg",
       "rating": {
-        "rate": "10",
+        "rate": "4",
         "count": "50"
       }
     },
@@ -319,19 +319,19 @@
       "category": "Gaming Chair",
       "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRikb4EyHB7mLbIsJIyK7PTfnoTO95SNDNPZfQsPtSLJgiPAM2VdS3IIwdww8bRjBfcBAf6wo9GQB1wevk6Np4v4Q-RF9zbaQvQIMKiEyhqfpn5NfMo5PNJVcuFK8JbrK-ERk9WKg8&usqp=CAc",
       "rating": {
-        "rate": "7.5",
+        "rate": "3",
         "count": "111"
       }
     },
     {
       "id": "1cd6",
-      "title": "ss",
+      "title": "Collection",
       "price": "22",
       "description": "sssds",
       "category": "ssas",
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFI9Y0nbWzE6yxJfez4Y1Guz_dp2Q1zAzjHA&s",
       "rating": {
-        "rate": "11",
+        "rate": "3",
         "count": "213"
       }
     },
@@ -343,7 +343,7 @@
       "category": "مشروبات  غازية",
       "image": "https://www.luluhypermarket.com/cdn-cgi/image/f=auto/medias/350156-01.jpg-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wzNzU0Nzd8aW1hZ2UvanBlZ3xhRGMxTDJnd1lpOHhNVGc0TkRVeE1qTTNPRGt4TUM4ek5UQXhOVFl0TURFdWFuQm5YekV5TURCWGVERXlNREJJfDgwN2JiMDY0Mzg2YzY0MzRmM2E2ZjExOTk1NDcxYmQxNWMyNDg5NTg1MjNjZjA3MDhjNzM4ZGZiZjgxODY3MTM",
       "rating": {
-        "rate": "7.5",
+        "rate": "4",
         "count": "500"
       }
     }
