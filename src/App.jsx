@@ -13,6 +13,7 @@ const App = () => {
   const [productDetails, setProductDetails] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const getProduct = () => {
     axios({
@@ -103,6 +104,18 @@ const App = () => {
     });
   };
 
+  const handleLogin = (user) => {
+    setLoggedInUser(user);
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+  };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser) {
+      setLoggedInUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
     <div className="text-center  dark:bg-[#424242] ">
       <Routes>
@@ -117,6 +130,9 @@ const App = () => {
               addToCart={addToCart}
               cartItems={cartItems}
               setCartItems={setCartItems}
+              handleLogin={handleLogin}
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
             />
           }
         />

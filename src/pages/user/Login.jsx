@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ users }) => {
+const Login = ({ users, handleLogin }) => {
   const [User, setUser] = useState({
     name: "",
     password: "",
@@ -26,6 +26,7 @@ const Login = ({ users }) => {
     });
 
     let hasError = false;
+
     if (User.name === "") {
       setErrors((prevErrors) => ({ ...prevErrors, name: true }));
       hasError = true;
@@ -43,7 +44,8 @@ const Login = ({ users }) => {
 
     if (foundUser) {
       localStorage.setItem("username", foundUser.name);
-      navigate("/");
+      handleLogin(foundUser);
+      navigate("/home"); //home
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, userNotFound: true }));
     }
