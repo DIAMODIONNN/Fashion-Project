@@ -22,10 +22,18 @@ const LayoutUser = ({
   loggedInUser,
   handleLogin,
   setLoggedInUser,
+  mode,
+  setDark,
+  setLight,
 }) => {
   return (
     <div>
-      <Header />
+      <Header
+        mode={mode}
+        setDark={setDark}
+        setLight={setLight}
+        cartItems={cartItems}
+      />
 
       <Routes>
         <Route path="/" element={<Home />} />

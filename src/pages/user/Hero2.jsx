@@ -6,38 +6,51 @@ import { Link } from "react-router-dom";
 
 const Hero2 = () => {
   return (
-    <div className=" flex flex-col md:w-auto md:flex-row justify-evenly">
-      <div className="flex flex-col md:w-auto md:flex-row items-center text-left">
-        <img src={img2} className=" " alt="" />
-      </div>
-      <div className="flex flex-col items-start  w-fit">
-        <h1 className=" text-5xl font-body">Accessories</h1>
-        <Link to="/Shop" className="underline text-sm ">
-          SHOP NOW
-        </Link>
-      </div>
-      <div className="flex md:flex-col basis-[50%] left-3 p-0">
-        <div className="flex flex-col md:flex-row gap-8 p-8 items-center text-left">
-          <img src={img1} className="w-max " alt="" />
+    <div className="w-full bg-gradient-to-r  py-10 px-6">
+      <div className="flex flex-col md:flex-row justify-evenly items-center gap-6">
+        {/* Section for Accessories */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <img
+            src={img2}
+            className="w-full md:w-80 rounded-lg shadow-lg"
+            alt="Accessories"
+          />
+          <h1 className="text-5xl font-body mt-4">Accessories</h1>
+          <Link to="/Shop" className="underline text-sm mt-2">
+            SHOP NOW
+          </Link>
         </div>
-        <div className="md:absolute flex flex-col items-start">
-          <div className="  text-5xl font-body ">
-            <h1>Clothing</h1>
-            <h1>Collections 2023</h1>
+
+        {/* Section for Clothing */}
+        <div className="relative flex flex-col md:items-start items-center text-center md:text-left">
+          <img
+            src={img1}
+            className="w-full md:w-80 rounded-lg shadow-lg"
+            alt="Clothing Collection"
+          />
+          <div className="absolute bottom-6 left-4 md:static">
+            <h1 className="text-5xl font-body">Clothing</h1>
+            {/* <h2 className="text-5xl font-body">Collections 2023</h2> */}
+            <Link to="/Shop" className="underline text-sm mt-2 block">
+              SHOP NOW
+            </Link>
           </div>
-          <Link to="/Shop" className="underline text-sm ">
-            SHOP NOW
-          </Link>
         </div>
-        <div className=" flex flex-col gap-8 p-8 top-[140] right-10 md:w-auto items-center text-left">
-          <img src={img3} className=" w-max" alt="" />
-        </div>
-        <div className="flex flex-col text-4xl font-body q22items-start">
-          <h1 className="">Shoes Spring</h1>
-          <h1 className=""> 2023</h1>
-          <Link to="/Shop" className="underline text-sm ">
-            SHOP NOW
-          </Link>
+
+        {/* Section for Shoes */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <img
+            src={img3}
+            className="w-full md:w-80 rounded-lg shadow-lg"
+            alt="Shoes Spring"
+          />
+          <div className="mt-4">
+            <h1 className="text-4xl font-body">Shoes Spring</h1>
+            <h2 className="text-4xl font-body">2023</h2>
+            <Link to="/Shop" className="underline text-sm mt-2">
+              SHOP NOW
+            </Link>
+          </div>
         </div>
       </div>
     </div>

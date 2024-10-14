@@ -14,6 +14,27 @@ const App = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [mode, setMode] = useState("light");
+  const setDark = () => {
+    localStorage.theme = mode;
+    setMode("dark");
+  };
+  const setLight = () => {
+    localStorage.theme = mode;
+    setMode("light");
+  };
+
+  useEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [mode]);
 
   const getProduct = () => {
     axios({
@@ -133,6 +154,9 @@ const App = () => {
               handleLogin={handleLogin}
               loggedInUser={loggedInUser}
               setLoggedInUser={setLoggedInUser}
+              mode={mode}
+              setDark={setDark}
+              setLight={setLight}
             />
           }
         />
@@ -152,6 +176,9 @@ const App = () => {
               setProductDetails={setProductDetails}
               userDetails={userDetails}
               setUserDetails={setUserDetails}
+              mode={mode}
+              setDark={setDark}
+              setLight={setLight}
             />
           }
         />

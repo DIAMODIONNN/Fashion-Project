@@ -14,29 +14,7 @@ import { Button } from "@material-tailwind/react";
 import myLogo from "./img/mainAssets/logo.png";
 import { CiDark, CiLight } from "react-icons/ci";
 
-function NavList() {
-  const [mode, setMode] = useState("light");
-  const setDark = () => {
-    localStorage.theme = mode;
-    setMode("dark");
-  };
-  const setLight = () => {
-    localStorage.theme = mode;
-    setMode("light");
-  };
-
-  useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [mode]);
-
+function NavList({ mode, setDark, setLight, cartItems }) {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -60,9 +38,31 @@ function NavList() {
       </Typography>
 
       <Link to="/Cart" className="flex items-center transition-colors">
-        <Button className="bg-[#229799] text-2xl dark:text-black">
-          <TiShoppingCart />
-        </Button>
+        <div
+          tabIndex={0}
+          role="button"
+          className="btn btn-ghost btn-circle dark:text-white"
+        >
+          <div className="indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+            <span className="badge badge-sm indicator-item">
+              {cartItems.length}
+            </span>
+          </div>
+        </div>
       </Link>
 
       <Link
@@ -81,7 +81,7 @@ function NavList() {
     </ul>
   );
 }
-const Header = () => {
+const Header = ({ mode, setDark, setLight, cartItems }) => {
   const [openNav, setOpenNav] = useState(false);
 
   return (
@@ -95,7 +95,12 @@ const Header = () => {
         </Link>
 
         <div className="items-center hidden lg:block">
-          <NavList />
+          <NavList
+            mode={mode}
+            setDark={setDark}
+            setLight={setLight}
+            cartItems={cartItems}
+          />
         </div>
         <IconButton
           variant="text"
@@ -111,7 +116,12 @@ const Header = () => {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <NavList />
+        <NavList
+          mode={mode}
+          setDark={setDark}
+          setLight={setLight}
+          cartItems={cartItems}
+        />
       </Collapse>
     </Navbar>
   );
