@@ -33,7 +33,7 @@ const ViewUser = ({ userDetails, setUserDetails }) => {
   }, [userId]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-300 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-200 to-indigo-500 p-8">
       {userDetails && (
         <Card className="w-96 shadow-lg rounded-lg overflow-hidden bg-white">
           <CardHeader className="h-60 mx-auto w-60 mt-4 rounded-full overflow-hidden shadow-md">
@@ -44,7 +44,11 @@ const ViewUser = ({ userDetails, setUserDetails }) => {
             />
           </CardHeader>
           <CardBody className="text-center p-6">
-            <Typography variant="h4" color="blue-gray" className="font-serif mb-2">
+            <Typography
+              variant="h4"
+              color="blue-gray"
+              className="font-serif mb-2"
+            >
               {userDetails?.name}
             </Typography>
             <Typography color="blue-gray" className="font-extrabold font-serif">
@@ -54,18 +58,18 @@ const ViewUser = ({ userDetails, setUserDetails }) => {
               Gender: {userDetails?.gender}
             </Typography>
             <Typography color="blue-gray" className="font-extrabold font-serif">
-            Email: {userDetails?.email}
+              Email: {userDetails?.email}
             </Typography>
+            <Button
+              onClick={() => navigate(-1)}
+              color="cyan"
+              className="mt-6  bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md"
+            >
+              BACK
+            </Button>
           </CardBody>
         </Card>
       )}
-      <Button
-        onClick={() => navigate(-1)}
-        color="cyan"
-        className="mt-6 bg-black hover:bg-[#229799] shadow-md"
-      >
-        BACK
-      </Button>
     </div>
   );
 };

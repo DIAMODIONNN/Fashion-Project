@@ -50,7 +50,7 @@ const Products = ({ products, deleted, setDeleted }) => {
         
 
         <Link to={`/admin/addProduct`}>
-                            <Button variant="gradient" color="blue" className="mb-3">
+                            <Button variant="gradient" color="blue" className="mb-3  bg-blue-500 hover:bg-blue-700  transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
                             Add New Product
                             </Button>
                           </Link>
@@ -137,12 +137,13 @@ const Products = ({ products, deleted, setDeleted }) => {
                           </Link>
                           
                           <Link to={`/admin/viewProduct/${id}`}>
-                            <Button className="rounded-full bg-indigo-500">
+                            <Button className="rounded-full bg-indigo-500  hover:bg-blue-700  transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
                               VIEW
                             </Button>
                           </Link>
                           <Button
-                            color="blue"
+                            color="red"
+                            className="  hover:bg-blue-700  transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                             onClick={() => deleteProduct({ title, id })}
                           >
                             DELETE

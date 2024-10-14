@@ -73,7 +73,7 @@ const Users = ({ users, deleted, setDeleted }) => {
         </h1>
 
         <Link to={`/admin/adduser`}>
-          <Button variant="gradient" color="blue" className="mb-3">
+          <Button variant="gradient" color="blue" className="mb-3 bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md">
             Add New User
           </Button>
         </Link>
@@ -134,7 +134,7 @@ const Users = ({ users, deleted, setDeleted }) => {
                           </Tooltip>
                         </Link>
                         <Link to={`/admin/viewuser/${id}`}>
-                          <Button className="bg-indigo-500 rounded-full">
+                          <Button className=" bg-indigo-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md rounded-full">
                             View
                           </Button>
                         </Link>
@@ -156,6 +156,7 @@ const Users = ({ users, deleted, setDeleted }) => {
                         ) : (
                           <Button
                           color="deep-purple"
+                          className="hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md"
                           onClick={() => toggle({ role, id })}
                         >
                           Make it Admin
@@ -163,13 +164,15 @@ const Users = ({ users, deleted, setDeleted }) => {
                         )}
 
                         {id === "1" ?<Button
-                          color="blue"
+                          color="red"
+                          
                           onClick={() => deleteUser({ name, id })}
                           disabled
                         >
                           DELETE
                         </Button> : <Button
-                          color="blue"
+                          color="red"
+                          className="hover:bg-black text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md"
                           onClick={() => deleteUser({ name, id })}
                           
                         >

@@ -9,11 +9,11 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({ user, users, products, product}) => {
+const Dashboard = ({ user, users, products, product }) => {
   return (
-    <div>
-      <div className="flex flex-wrap justify-evenly items-center gap-6 p-6">
-        <Card className="mt-6 w-full sm:w-96 hover:shadow-2xl transition-shadow duration-300">
+    <div className="bg-gradient-to-r from-blue-200 to-indigo-500 min-h-screen flex justify-center items-center  p-6">
+      <div className="flex flex-wrap justify-evenly items-center gap-32">
+        <Card className="mt-6 w-full sm:w-96 hover:shadow-2xl transition-shadow  duration-300">
           <CardHeader color="blue-gray" className="relative h-56">
             <img
               src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
@@ -34,7 +34,7 @@ const Dashboard = ({ user, users, products, product}) => {
           </CardBody>
           <CardFooter className="pt-4">
             <Link to={`/admin/users`}>
-              <Button className="w-full bg-blue-500 hover:bg-blue-700 transition-colors">
+              <Button className="w-full bg-blue-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md">
                 CHECK USERS
               </Button>
             </Link>
@@ -62,7 +62,7 @@ const Dashboard = ({ user, users, products, product}) => {
           </CardBody>
           <CardFooter className="pt-4">
             <Link to={`/admin/products`}>
-              <Button className="w-full bg-blue-500 hover:bg-blue-700 transition-colors">
+              <Button className="w-full bg-blue-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md">
                 CHECK PRODUCTS
               </Button>
             </Link>

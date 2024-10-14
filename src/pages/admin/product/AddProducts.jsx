@@ -26,24 +26,27 @@ const AddProducts = ({ setDeleted, deleted }) => {
   const navigate = useNavigate();
 
   const validateInputs = () => {
-
     if (!product.title || product.title.length < 3) {
       return { title: "Title must be at least 3 characters long" };
-    }else if (!product.price || isNaN(product.price) || product.price <= 0) {
+    } else if (!product.price || isNaN(product.price) || product.price <= 0) {
       return { price: "Please enter a valid price." };
     } else if (!product.description || product.description.length < 5) {
       return { description: "Description should be at least 5 characters long." };
-    } else if(!product.category) {
+    } else if (!product.category) {
       return { category: "Category cannot be empty." };
-    } else if (!product.image ) {
+    } else if (!product.image) {
       return { image: "Please provide a valid image URL." };
-    } else if (!product.rating.rate || isNaN(product.rating.rate) || product.rating.rate < 0 || product.rating.rate > 5) {
+    } else if (
+      !product.rating.rate ||
+      isNaN(product.rating.rate) ||
+      product.rating.rate < 0 ||
+      product.rating.rate > 5
+    ) {
       return { rate: "Rate must be a number between 0 and 5." };
     } else if (!product.rating.count || isNaN(product.rating.count) || product.rating.count <= 0) {
       return { count: "Count must be a positive number." };
     }
 
-    // If all validations pass means no error
     return {};
   };
 
@@ -71,7 +74,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-indigo-500 p-6">
       <Card color="transparent" shadow={false} className="p-6 bg-white max-w-lg w-full rounded-lg shadow-lg mt-6">
         <Typography variant="h4" color="blue-gray" className="text-center mb-4">
           Add New Product
@@ -81,19 +84,17 @@ const AddProducts = ({ setDeleted, deleted }) => {
         </Typography>
         <form className="space-y-6" onSubmit={addNew}>
           <div className="space-y-4">
-            
             <div>
               <Input
                 label="Title"
                 className="bg-white"
                 value={product.title}
-                error = {errors.title}
+                error={errors.title}
                 onChange={(e) => setProduct({ ...product, title: e.target.value })}
               />
               {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
             </div>
 
-            
             <div>
               <Input
                 label="Price"
@@ -102,26 +103,20 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 error={errors.price}
                 onChange={(e) => setProduct({ ...product, price: e.target.value })}
               />
-              {errors.price && !errors.title && (
-                <p className="text-red-500 text-sm mt-1">{errors.price}</p>
-              )}
+              {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
             </div>
 
-            
             <div>
               <Input
                 label="Description"
                 className="bg-white"
                 value={product.description}
-                error={errors.description }
+                error={errors.description}
                 onChange={(e) => setProduct({ ...product, description: e.target.value })}
               />
-              {errors.description && !errors.title && !errors.price && (
-                <p className="text-red-500 text-sm mt-1">{errors.description}</p>
-              )}
+              {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
             </div>
 
-           
             <div>
               <Input
                 label="Category"
@@ -130,12 +125,9 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 error={errors.category}
                 onChange={(e) => setProduct({ ...product, category: e.target.value })}
               />
-              {errors.category && !errors.title && !errors.price && !errors.description && (
-                <p className="text-red-500 text-sm mt-1">{errors.category}</p>
-              )}
+              {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
             </div>
 
-           
             <div>
               <Input
                 label="Image"
@@ -145,12 +137,9 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 error={errors.image}
                 onChange={(e) => setProduct({ ...product, image: e.target.value })}
               />
-              {errors.image && !errors.title && !errors.price && !errors.description && !errors.category && (
-                  <p className="text-red-500 text-sm mt-1">{errors.image}</p>
-                )}
+              {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
             </div>
 
-            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Input
@@ -165,9 +154,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
                     })
                   }
                 />
-                {errors.rate && !errors.title && !errors.price && !errors.description && !errors.category && !errors.image && (
-                    <p className="text-red-500 text-sm mt-1">{errors.rate}</p>
-                  )}
+                {errors.rate && <p className="text-red-500 text-sm mt-1">{errors.rate}</p>}
               </div>
 
               <div>
@@ -175,7 +162,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
                   label="Count"
                   className="bg-white"
                   value={product.rating.count}
-                  error= {errors.count }
+                  error={errors.count}
                   onChange={(e) =>
                     setProduct({
                       ...product,
@@ -183,18 +170,16 @@ const AddProducts = ({ setDeleted, deleted }) => {
                     })
                   }
                 />
-                {errors.count && !errors.title && !errors.price && !errors.description && !errors.category && !errors.image && !errors.rate && (
-                    <p className="text-red-500 text-sm mt-1">{errors.count}</p>
-                  )}
+                {errors.count && <p className="text-red-500 text-sm mt-1">{errors.count}</p>}
               </div>
             </div>
           </div>
 
           <div className="flex justify-center items-center gap-4">
-            <Button className="w-full" type="submit">
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md" type="submit">
               Confirm
             </Button>
-            <Button color="cyan" onClick={() => navigate(-1)}>
+            <Button color="cyan" className="bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md" onClick={() => navigate(-1)}>
               Back
             </Button>
           </div>

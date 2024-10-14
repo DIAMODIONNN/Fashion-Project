@@ -41,28 +41,26 @@ const EditProduct = ({ deleted, setDeleted }) => {
   }, [productId]);
 
   const validateInputs = () => {
-    
-
     if (!editProduct.title || editProduct.title.length < 3) {
-      return {title : "Title must be at least 3 characters long and contain no spaces."}
+      return { title: "Title must be at least 3 characters long and contain no spaces." };
     }
     if (!editProduct.price || isNaN(editProduct.price) || editProduct.price <= 0) {
-      return {price : "Please enter a valid price."}
+      return { price: "Please enter a valid price." };
     }
     if (!editProduct.description || editProduct.description.length < 5) {
-      return {description : "Description should be at least 5 characters long."}
+      return { description: "Description should be at least 5 characters long." };
     }
     if (!editProduct.category) {
-      return {category : "Category cannot be empty."}
+      return { category: "Category cannot be empty." };
     }
     if (!editProduct.image) {
-      return{image : "Please provide a valid image URL."}
+      return { image: "Please provide a valid image URL." };
     }
     if (!editProduct.rating.rate || isNaN(editProduct.rating.rate) || editProduct.rating.rate < 0 || editProduct.rating.rate > 5) {
-      return {rate : "Rate must be a number between 0 and 5."}
+      return { rate: "Rate must be a number between 0 and 5." };
     }
     if (!editProduct.rating.count || isNaN(editProduct.rating.count) || editProduct.rating.count <= 0) {
-      return {count : "Count must be a positive number."}
+      return { count: "Count must be a positive number." };
     }
 
     return {};
@@ -94,8 +92,8 @@ const EditProduct = ({ deleted, setDeleted }) => {
   };
 
   return (
-    <section className=" container mx-auto mt-6">
-      <Card className="p-8 bg-gray-50 shadow-lg max-w-4xl mx-auto">
+    <section className="min-h-screen bg-gradient-to-r from-blue-200 to-indigo-500 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <Card className="p-8 bg-gray-50 shadow-lg max-w-4xl w-full mx-auto">
         <Typography variant="h4" color="indigo" className="text-center font-bold mb-4">
           Edit Product
         </Typography>
@@ -135,7 +133,6 @@ const EditProduct = ({ deleted, setDeleted }) => {
               {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
             </div>
 
-
             <div>
               <Typography variant="small" className="mb-2 font-medium">
                 Description
@@ -173,7 +170,7 @@ const EditProduct = ({ deleted, setDeleted }) => {
               <Input
                 size="lg"
                 label="Image"
-                type= "url"
+                type="url"
                 value={editProduct.image}
                 onChange={(e) => setEditProduct({ ...editProduct, image: e.target.value })}
                 error={errors.image}
@@ -215,14 +212,13 @@ const EditProduct = ({ deleted, setDeleted }) => {
               />
               {errors.rate && <p className="text-red-500 text-sm mt-1">{errors.rate}</p>}
             </div>
-
           </div>
 
           <div className="flex justify-center gap-4 mt-6">
-            <Button color="indigo" size="lg" type="submit" className="shadow-md hover:shadow-lg transition">
+            <Button color="indigo" size="lg" type="submit" className=" bg-blue-500 hover:bg-blue-700  transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               Submit Changes
             </Button>
-            <Button color="cyan" size="lg" onClick={() => navigate(-1)} className="shadow-md hover:shadow-lg transition">
+            <Button color="cyan" size="lg" onClick={() => navigate(-1)} className=" bg-blue-500 hover:bg-blue-700  transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
               BACK
             </Button>
           </div>
@@ -231,5 +227,5 @@ const EditProduct = ({ deleted, setDeleted }) => {
     </section>
   );
 };
- 
+
 export default EditProduct;
