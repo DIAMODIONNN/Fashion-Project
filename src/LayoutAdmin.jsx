@@ -64,6 +64,7 @@ const LayoutAdmin = ({
           }
         />
 
+<<<<<<< HEAD
         {/* Routes for Product >> pages*/}
         <Route
           path="/products"
@@ -120,6 +121,10 @@ const LayoutAdmin = ({
 
         {/* Route for NotFound page*/}
         <Route path="/NotFound" element={<NotFound />} />
+=======
+          {/* Route for NotFound page*/}
+          <Route path="/*" element={<NotFound />} />
+>>>>>>> c3b02c9a5b9e248be3180252eef9be366ebcdde6
       </Routes>
     </div>
   );
