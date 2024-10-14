@@ -47,7 +47,7 @@ const LayoutAdmin = ({ users ,setUsers , products, user,product, setProducts, de
           <Route path = "/addUser" element = {<AddUsers deleted={deleted} setDeleted={setDeleted}/>}/>
 
           {/* Route for NotFound page*/}
-          <Route path="/NotFound" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
   );
