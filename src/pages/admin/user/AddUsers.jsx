@@ -27,12 +27,12 @@ const AddNewUser = ({ setDeleted, deleted }) => {
      return{ email : "Please enter a valid email address."};
     }else if (!user.password || user.password.length < 5) {
       return {password : "Password should be at least 5 characters long."};
-    }else if (!user.img ) {
+    }else if (!user.img || !/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(user.img)) {
       return {img : "Please provide a valid image URL."};
     }else if (!user.gender) {
-      return {gender : "Please choose a Gender before proceeding."};
+      return {gender : "Please choose your Gender."};
     }else if (!user.role) {
-      return {role : "Please choose a Role before proceeding."};
+      return {role : "Please choose a Role."};
     }
   
     return {};
@@ -78,7 +78,8 @@ return (
               label="Username"
               className="bg-white"
               value={user.name}
-              error = {errors.username}
+              error = {!!errors.username}
+              success = {!!(user.name.length > 2)}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
             />
             {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
@@ -89,8 +90,9 @@ return (
             <Input
               label="Email"
               className="bg-white"
-              value={user.email}
-              error={errors.email}
+              value ={user.email}
+              error ={!!errors.email}
+              success = {!!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email))}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
             {errors.email && !errors.username && (
@@ -105,7 +107,8 @@ return (
               type="password"
               className="bg-white"
               value={user.password}
-              error={errors.password }
+              error={!!errors.password }
+              success = {!!(user.password.length > 4)}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
             {errors.password && !errors.email && !errors.username && (
@@ -117,9 +120,9 @@ return (
             <Input
               label="Image"
               className="bg-white"
-              type="url"
               value={user.img}
-              error={errors.img}
+              error={!!errors.img}
+              success = {!!(/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(user.img))}
               onChange={(e) => setUser({ ...user, img: e.target.value })}
             />
             {errors.img  && !errors.password && !errors.email && !errors.username &&(
@@ -132,7 +135,8 @@ return (
           <Select
                 label = "Gender"
                 value={user.gender}
-                error = {errors.gender}
+                error = {!!errors.gender}
+                success = {!!(user.gender)}
                 onChange={(value) => setUser({ ...user, gender: value })}
                 className= "bg-white"
               >
@@ -148,7 +152,8 @@ return (
               <Select
                 label = "Role"
                 value={user.role}
-                error = {errors.role}
+                error = {!!errors.role}
+                success = {!!(user.role)}
                 onChange={(value) => setUser({ ...user, role: value })}
                 className= "bg-white"
               >
