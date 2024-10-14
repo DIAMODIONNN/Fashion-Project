@@ -15,6 +15,7 @@ const SignUp = ({ addUser, users }) => {
     email: "",
     password: "",
     gender: "",
+    img: "",
   });
 
   const [errors, setErrors] = useState({
@@ -22,6 +23,7 @@ const SignUp = ({ addUser, users }) => {
     email: "",
     password: "",
     gender: "",
+    img: "",
   });
 
   const [accountExists, setAccountExists] = useState(false);
@@ -36,7 +38,13 @@ const SignUp = ({ addUser, users }) => {
     e.preventDefault();
 
     let hasError = false;
-    const newErrors = { name: "", email: "", password: "", gender: "" };
+    const newErrors = {
+      name: "",
+      email: "",
+      password: "",
+      gender: "",
+      img: "",
+    };
 
     if (User.name.trim() === "" || User.name.length < 3) {
       newErrors.name = "Name is required and should be at least 3 characters.";
@@ -54,7 +62,13 @@ const SignUp = ({ addUser, users }) => {
       newErrors.gender = "Please select your gender.";
       hasError = true;
     }
-
+    if (
+      User.img === "" ||
+      !/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(User.img)
+    ) {
+      newErrors.img = "Enter URL Image.";
+      hasError = true;
+    }
     setErrors(newErrors);
 
     const isDuplicate = users.some(
@@ -155,6 +169,20 @@ const SignUp = ({ addUser, users }) => {
                 {errors.password}
               </Typography>
             )}
+            <Typography color="gray" className="mt-4 text-center font-normal">
+              <Input
+                label="Image"
+                className="bg-white"
+                value={User.img}
+                error={!!errors.img}
+                onChange={(e) => setUser({ ...User, img: e.target.value })}
+              />
+              {errors.img && (
+                <Typography className="text-red-500 text-start">
+                  {errors.img}
+                </Typography>
+              )}
+            </Typography>
           </div>
 
           <Button
