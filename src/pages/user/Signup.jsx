@@ -77,10 +77,10 @@ const SignUp = ({ addUser, users }) => {
 
   return (
     <div
-      className={`w-full flex justify-center items-center pt-8 text-center ${"bg-white"}`}
+      className={`w-full flex justify-center items-center pt-8 text-center dark:bg-[#424242] ${"bg-white"}`}
     >
       <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color={"black"}>
+        <Typography className="dark:text-white" variant="h4" color={"black"}>
           Sign Up
         </Typography>
         {accountExists && (
@@ -100,7 +100,7 @@ const SignUp = ({ addUser, users }) => {
               onChange={(e) => setUser({ ...User, name: e.target.value })}
               className={`${
                 errors.name || accountExists ? "border-red-500" : ""
-              } ${"bg-white text-black"}`}
+              } ${"bg-white text-black dark:bg-[#424242] dark:text-white"}`}
             />
             {errors.name && (
               <Typography className="text-red-500 text-start">
@@ -112,7 +112,9 @@ const SignUp = ({ addUser, users }) => {
               label="Gender"
               error={!!errors.gender || accountExists}
               onChange={(value) => setUser({ ...User, gender: value })}
-              className={"bg-white text-black"}
+              className={
+                "bg-white text-black dark:bg-[#424242] dark:text-white"
+              }
             >
               <Option value="Male">Male</Option>
               <Option value="Female">Female</Option>
@@ -130,7 +132,7 @@ const SignUp = ({ addUser, users }) => {
               onChange={(e) => setUser({ ...User, email: e.target.value })}
               className={`${
                 errors.email || accountExists ? "border-red-500" : ""
-              } ${"bg-white text-black"}`}
+              } ${"bg-white text-black dark:bg-[#424242] dark:text-white"}`}
             />
             {errors.email && (
               <Typography className="text-red-500 text-start">
@@ -146,7 +148,7 @@ const SignUp = ({ addUser, users }) => {
               onChange={(e) => setUser({ ...User, password: e.target.value })}
               className={`${
                 errors.password || accountExists ? "border-red-500" : ""
-              } ${"bg-white text-black"}`}
+              } ${"bg-white text-black dark:bg-[#424242] dark:text-white"}`}
             />
             {errors.password && (
               <Typography className="text-red-500 text-start">
@@ -157,17 +159,19 @@ const SignUp = ({ addUser, users }) => {
 
           <Button
             type="submit"
-            className={`mt-6 ${"bg-[#48CFCB] hover:bg-[#5AE3E0]"}`}
+            className={`mt-6 dark:bg-[#229799]  ${"bg-[#48CFCB] hover:bg-[#5AE3E0]"}`}
             fullWidth
           >
             Sign up
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
-            <p className={`inline ${"text-black"}`}>Already have an account?</p>
+            <p className={`inline dark:text-white ${"text-black"}}`}>
+              Already have an account?
+            </p>
             <a
               href="#"
               onClick={() => navigate("/login")}
-              className={`font-medium ml-1 ${"text-[#5AE3E0]"}`}
+              className={`font-medium ml-1 dark:text-[#229799] ${"text-[#48CFCB] "}`}
             >
               Login
             </a>

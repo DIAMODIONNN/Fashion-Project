@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import LayoutUser from "./LayoutUser";
 import LayoutAdmin from "./LayoutAdmin";
 import axios from "axios";
-
 const App = () => {
   const [user, setUser] = useState([]);
   const [users, setUsers] = useState([]);
@@ -19,7 +18,6 @@ const App = () => {
     localStorage.theme = mode;
     setMode("dark");
   };
-
   const setLight = () => {
     localStorage.theme = mode;
     setMode("light");
@@ -139,7 +137,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="text-center  dark:bg-[#424242] ">
+    <div className="text-center  dark:bg-[#424242] bg-white ">
       <Routes>
         <Route
           path="/*"
@@ -164,40 +162,42 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            loggedInUser?.role == "admin" ?
-            (<LayoutAdmin
-              user={user}
-              setUsers={setUsers}
-              users={users}
-              products={products}
-              product={product}
-              setProducts={setProducts}
-              deleted={deleted}
-              setDeleted={setDeleted}
-              productDetails={productDetails}
-              setProductDetails={setProductDetails}
-              userDetails={userDetails}
-              setUserDetails={setUserDetails}
-              mode={mode}
-              setDark={setDark}
-              setLight={setLight}
-            />) :(
-            <LayoutUser
-              products={products}
-              setProducts={setProducts}
-              addUser={addUser}
-              users={users}
-              addToCart={addToCart}
-              cartItems={cartItems}
-              setCartItems={setCartItems}
-              handleLogin={handleLogin}
-              loggedInUser={loggedInUser}
-              setLoggedInUser={setLoggedInUser}
-              mode={mode}
-              setDark={setDark}
-              setLight={setLight}
-            />
-           )}
+            loggedInUser?.role == "admin" ? (
+              <LayoutAdmin
+                user={user}
+                setUsers={setUsers}
+                users={users}
+                products={products}
+                product={product}
+                setProducts={setProducts}
+                deleted={deleted}
+                setDeleted={setDeleted}
+                productDetails={productDetails}
+                setProductDetails={setProductDetails}
+                userDetails={userDetails}
+                setUserDetails={setUserDetails}
+                mode={mode}
+                setDark={setDark}
+                setLight={setLight}
+              />
+            ) : (
+              <LayoutUser
+                products={products}
+                setProducts={setProducts}
+                addUser={addUser}
+                users={users}
+                addToCart={addToCart}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+                handleLogin={handleLogin}
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+                mode={mode}
+                setDark={setDark}
+                setLight={setLight}
+              />
+            )
+          }
         />
       </Routes>
     </div>

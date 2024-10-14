@@ -53,10 +53,10 @@ const Login = ({ users, handleLogin }) => {
 
   return (
     <div
-      className={`w-full flex justify-center items-center pt-8 text-center ${"bg-white"}`}
+      className={`w-full flex justify-center items-center pt-8 text-center dark:bg-[#424242] ${"bg-white"}`}
     >
       <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color={"black"}>
+        <Typography className="dark:text-white" variant="h4" color={"black"}>
           Login
         </Typography>
         <form
@@ -71,7 +71,7 @@ const Login = ({ users, handleLogin }) => {
               onChange={(e) => setUser({ ...User, name: e.target.value })}
               className={`${
                 errors.name ? "border-red-500" : ""
-              } ${"bg-white text-black"}`}
+              } ${"bg-white text-black dark:bg-[#424242] dark:text-white"}`}
             />
             <Input
               label="Password"
@@ -81,7 +81,7 @@ const Login = ({ users, handleLogin }) => {
               onChange={(e) => setUser({ ...User, password: e.target.value })}
               className={`${
                 errors.password ? "border-red-500" : ""
-              } ${"bg-white text-black"}`}
+              } ${"bg-white text-black dark:bg-[#424242] dark:text-white"}`}
             />
           </div>
           {errors.userNotFound && (
@@ -91,20 +91,20 @@ const Login = ({ users, handleLogin }) => {
           )}
           <Button
             type="submit"
-            className={`mt-6 ${"bg-[#48CFCB] hover:bg-[#5AE3E0]"}`}
+            className={`mt-6 dark:bg-[#229799] ${"bg-[#48CFCB] hover:bg-[#5AE3E0]"}`}
             fullWidth
           >
             Login
           </Button>
 
           <Typography color={"gray"} className="mt-4 text-center font-normal">
-            <p className={`inline mr-2 ${"text-black"}`}>
+            <p className={`inline mr-2 dark:text-white ${"text-black"}`}>
               Don't have an account?
             </p>
             <a
               href="#"
               onClick={() => navigate("/signup")}
-              className={`font-medium ${"text-[#48CFCB] "}`}
+              className={`font-medium dark:text-[#229799] ${"text-[#48CFCB] "}`}
             >
               Sign Up
             </a>
