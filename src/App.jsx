@@ -3,30 +3,83 @@ import { Route, Routes } from "react-router-dom";
 import LayoutUser from "./LayoutUser";
 import LayoutAdmin from "./LayoutAdmin";
 import axios from "axios";
-
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
+  const [user, setUser] = useState([]);
   const [users, setUsers] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [deleted, setDeleted] = useState(false);
+  const [productDetails, setProductDetails] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [mode, setMode] = useState("light");
+  const setDark = () => {
+    localStorage.theme = mode;
+    setMode("dark");
+  };
+  const setLight = () => {
+    localStorage.theme = mode;
+    setMode("light");
+  };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/products")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, []);
-
-  const getUsers = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/users");
-      setUsers(response.data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
+  }, [mode]);
+
+  const getProduct = () => {
+    axios({
+      method: "get",
+      url: "http://localhost:3000/products",
+    }).then(({ data }) => setProduct(data[data.length - 1]));
   };
+
+  useEffect(() => {
+    getProduct();
+  }, [deleted]);
+
+  const getProducts = () => {
+    axios({
+      method: "get",
+      url: "http://localhost:3000/products",
+    })
+      .then(({ data }) => setProducts(data))
+      .catch((error) => console.error("Error fetching products:", error));
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, [deleted]);
+
+  const getUser = () => {
+    axios({
+      method: "get",
+      url: "http://localhost:3000/users",
+    }).then(({ data }) => setUser(data[data.length - 1]));
+  };
+  useEffect(() => {
+    getUser();
+  }, [deleted]);
+
+  const getUsers = () => {
+    axios({
+      method: "get",
+      url: "http://localhost:3000/users",
+    })
+      .then(({ data }) => setUsers(data))
+      .catch((error) => console.error("Error fetching products:", error));
+  };
+  useEffect(() => {
+    getUsers();
+  }, [deleted]);
 
   const addUser = async (newUser) => {
     const isDuplicate = users.some(
@@ -45,10 +98,6 @@ const App = () => {
       console.error("Error adding user:", error);
     }
   };
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -88,7 +137,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="text-center">
+    <div className="text-center  dark:bg-[#424242] bg-white ">
       <Routes>
         <Route
           path="/*"
@@ -104,10 +153,34 @@ const App = () => {
               handleLogin={handleLogin}
               loggedInUser={loggedInUser}
               setLoggedInUser={setLoggedInUser}
+              mode={mode}
+              setDark={setDark}
+              setLight={setLight}
             />
           }
         />
-        <Route path="/admin/*" element={<LayoutAdmin />} />
+        <Route
+          path="/admin/*"
+          element={
+            <LayoutAdmin
+              user={user}
+              setUsers={setUsers}
+              users={users}
+              products={products}
+              product={product}
+              setProducts={setProducts}
+              deleted={deleted}
+              setDeleted={setDeleted}
+              productDetails={productDetails}
+              setProductDetails={setProductDetails}
+              userDetails={userDetails}
+              setUserDetails={setUserDetails}
+              mode={mode}
+              setDark={setDark}
+              setLight={setLight}
+            />
+          }
+        />
       </Routes>
     </div>
   );

@@ -2,11 +2,11 @@
   "users": [
     {
       "id": "1",
-      "name": "amr",
+      "name": "Alaa Mahmoud Rabie",
       "email": "amrmohamed@gmail.com",
-      "password": "123456",
+      "password": "2345",
       "role": "admin",
-      "gender": "Male",
+      "gender": "Female",
       "img": "https://images.unsplash.com/photo-1727129333061-64db3070262e?q=80&w=3774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {

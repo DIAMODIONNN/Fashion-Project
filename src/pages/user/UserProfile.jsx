@@ -7,7 +7,6 @@ const UserProfile = ({ setLoggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({});
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     if (loggedInUser) {
@@ -64,9 +63,9 @@ const UserProfile = ({ setLoggedInUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-        <h2 className="text-3xl font-bold mb-4 text-gray-800 text-center">
+    <div className="min-h-screen flex items-center justify-center dark:bg-[#424242] bg-white">
+      <div className="bg-white dark:bg-[#424242] p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <h2 className="text-3xl font-bold mb-4 dark:text-white text-gray-800 text-center">
           User Profile
         </h2>
         {error && <p className="text-red-500">{error}</p>}
@@ -78,7 +77,7 @@ const UserProfile = ({ setLoggedInUser }) => {
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Name</label>
+          <label className="block dark:text-white text-black">Name</label>
           <input
             type="text"
             name="name"
@@ -86,12 +85,14 @@ const UserProfile = ({ setLoggedInUser }) => {
             onChange={handleChange}
             disabled={!isEditing}
             className={`mt-1 w-full p-2 border ${
-              isEditing ? "border-gray-300" : "border-transparent"
+              isEditing
+                ? "border-gray-300 bg-white text-black"
+                : "border-transparent bg-gray-700 text-white"
             } rounded-md`}
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
+          <label className="block dark:text-white text-black">Email</label>
           <input
             type="email"
             name="email"
@@ -99,19 +100,23 @@ const UserProfile = ({ setLoggedInUser }) => {
             onChange={handleChange}
             disabled={!isEditing}
             className={`mt-1 w-full p-2 border ${
-              isEditing ? "border-gray-300" : "border-transparent"
+              isEditing
+                ? "border-gray-300 bg-white text-black"
+                : "border-transparent bg-gray-700 text-white"
             } rounded-md`}
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Gender</label>
+          <label className="block dark:text-white text-black">Gender</label>
           <select
             name="gender"
             value={userData.gender}
             onChange={handleChange}
             disabled={!isEditing}
-            className={`mt-1 w-full p-2 border ${
-              isEditing ? "border-gray-300" : "border-transparent"
+            className={`mt-1 w-full p-2 border dark:text-white text-black ${
+              isEditing
+                ? "border-gray-300 bg-white text-black"
+                : "border-transparent bg-gray-700 text-white"
             } rounded-md`}
           >
             <option value="Male">Male</option>
@@ -119,7 +124,7 @@ const UserProfile = ({ setLoggedInUser }) => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Password</label>
+          <label className="block dark:text-white text-black">Password</label>
           <input
             type="password"
             name="password"
@@ -127,7 +132,9 @@ const UserProfile = ({ setLoggedInUser }) => {
             onChange={handleChange}
             disabled={!isEditing}
             className={`mt-1 w-full p-2 border ${
-              isEditing ? "border-gray-300" : "border-transparent"
+              isEditing
+                ? "border-gray-300 bg-white text-black"
+                : "border-transparent bg-gray-700 text-white"
             } rounded-md`}
           />
         </div>
@@ -142,7 +149,7 @@ const UserProfile = ({ setLoggedInUser }) => {
           ) : (
             <button
               onClick={handleEdit}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              className="px-4 py-2 dark:bg-[#229799] bg-[#48CFCB] text-white rounded-md"
             >
               Edit
             </button>

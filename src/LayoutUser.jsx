@@ -6,7 +6,11 @@ import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
 import Shop from "./pages/user/Shop";
 import Cart from "./pages/user/Cart";
+
+import Footer from "./components/Footer";
+
 import UserProfile from "./pages/user/UserProfile";
+
 const LayoutUser = ({
   products,
   setProducts,
@@ -54,7 +58,7 @@ const LayoutUser = ({
         <Route path="/*" element={<Home />} />
         <Route
           path="/login"
-          element={<Login users={users} handleLogin={handleLogin} />} //neww props
+          element={<Login users={users} handleLogin={handleLogin} />}
         />
         <Route
           path="/profile"
@@ -63,9 +67,10 @@ const LayoutUser = ({
               loggedInUser={loggedInUser}
               setLoggedInUser={setLoggedInUser}
             />
-          } //new propss and Route
+          }
         />
       </Routes>
+      <Footer />
     </div>
   );
 };

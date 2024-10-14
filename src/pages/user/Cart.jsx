@@ -45,14 +45,14 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
   };
   return (
     <div
-      className={`flex flex-col lg:flex-row justify-between p-4 ${"bg-white"}`}
+      className={`flex flex-col lg:flex-row justify-between p-4 dark:bg-[#424242] ${"bg-white"}`}
     >
       <div className="w-full lg:w-2/3">
         <div className="flex justify-center items-center mt-10 text-center">
           <GiShoppingCart
-            className={`mr-2 text-4xl ${"text-[#48CFCB]"} font-bold`}
+            className={`mr-2 text-4xl dark:text-[#229799] ${"text-[#48CFCB]"} font-bold`}
           />
-          <h1 className={`font-bold text-3xl ${"text-black"}`}>
+          <h1 className={`font-bold text-3xl dark:text-white ${"text-black"}`}>
             Shopping Cart
           </h1>
         </div>
@@ -62,7 +62,7 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className={`ml-5 flex items-center border border-white shadow-lg rounded-lg p-4 mb-4  ${"bg-white"}`}
+                className={`ml-5 flex items-center border dark:border-[#424242] border-white shadow-lg rounded-lg p-4 mb-4 dark:bg-[#424242] ${"bg-white"}`}
               >
                 <img
                   src={item.img}
@@ -70,7 +70,9 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
                   className="w-16 h-16 inline-block mr-4"
                 />
                 <div className="flex flex-col flex-grow">
-                  <span className={`font-semibold ${"text-black"}`}>
+                  <span
+                    className={`font-semibold dark:text-white ${"text-black"}`}
+                  >
                     {item.name}
                   </span>
                   <span className={`text-gray-600 ${"text-gray-600"}`}>
@@ -82,26 +84,34 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
                     className="border border-gray-400 rounded-lg p-2 flex items-center justify-center"
                     onClick={() => handleDecreaseQuantity(item.id)}
                   >
-                    <IoMdRemove className={`text-lg ${"text-black"}`} />
+                    <IoMdRemove
+                      className={`text-lg dark:text-white ${"text-black"}`}
+                    />
                   </button>
-                  <span className={`mx-2 ${"text-black"}`}>
+                  <span className={`mx-2 dark:text-white ${"text-black"}`}>
                     {item.quantity ? item.quantity : 1}
                   </span>
                   <button
                     className="border border-gray-400 rounded-lg p-2 flex items-center justify-center"
                     onClick={() => handleIncreaseQuantity(item.id)}
                   >
-                    <IoMdAdd className={`text-lg ${"text-black"}`} />
+                    <IoMdAdd
+                      className={`text-lg dark:text-white ${"text-black"}`}
+                    />
                   </button>
                 </div>
-                <span className={`font-semibold ${"text-black"}`}>
+                <span
+                  className={`font-semibold dark:text-white ${"text-black"}`}
+                >
                   $
                   {(item.price * (item.quantity ? item.quantity : 1)).toFixed(
                     2
                   )}
                 </span>
                 <button onClick={() => handleRemoveFromCart(item.id)}>
-                  <FaTrashCan className={`ml-10 ${"text-black"}`} />
+                  <FaTrashCan
+                    className={`ml-10 dark:text-white ${"text-black"}`}
+                  />
                 </button>
               </div>
             ))}
@@ -113,13 +123,13 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
             </div>
             <div className="flex justify-center text-center">
               <h1
-                className={`text-black font-bold text-3xl mt-10 ${"text-black"}`}
+                className={`text-black font-bold text-3xl mt-10 dark:text-white ${"text-black"}`}
               >
                 Cart's Feeling Light
               </h1>
             </div>
             <div
-              className={`text-gray-600 text-md mt-2 flex justify-center text-center ${"text-gray-600"}`}
+              className={`text-gray-600 text-md mt-2 flex justify-center text-center dark:text-gray-300 ${"text-gray-600"}`}
             >
               Your cart is longing for some company. Begin your shopping
               adventure now!
@@ -127,7 +137,7 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleGoToProducts}
-                className={`px-4 py-2 ${"bg-[#48CFCB] text-white"} font-bold rounded hover:bg-[#5AE3E0] transition duration-300`}
+                className={`px-4 py-2 dark:bg-[#229799] dark:bg-[#424242] ${"bg-[#48CFCB] text-white"} font-bold rounded hover:bg-[#5AE3E0] transition duration-300`}
               >
                 EXPLORE OUR PRODUCTS
               </button>
@@ -137,27 +147,39 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
       </div>
 
       <div
-        className={`w-full lg:w-1/4 p-5 rounded-lg shadow-lg mt-5 lg:mt-0 ${"bg-white"}`}
+        className={`w-full lg:w-1/4 p-5 rounded-lg shadow-lg mt-5 lg:mt-0 dark:bg-[#424242] ${"bg-white"}`}
       >
-        <h2 className={`text-xl font-bold mb-4 ${"text-black"}`}>Summary</h2>
-        <div className={`flex justify-between mb-2 ${"text-black"}`}>
+        <h2
+          className={`text-xl font-bold mb-4 dark:text-white ${"text-black"}`}
+        >
+          Summary
+        </h2>
+        <div
+          className={`flex justify-between mb-2 dark:text-white ${"text-black"}`}
+        >
           <span>Subtotal:</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
-        <div className={`flex justify-between mb-2 ${"text-black"}`}>
+        <div
+          className={`flex justify-between mb-2 dark:text-white ${"text-black"}`}
+        >
           <span>Taxes:</span>
           <span>${taxes.toFixed(2)}</span>
         </div>
-        <div className={`flex justify-between mb-2 ${"text-black"}`}>
+        <div
+          className={`flex justify-between mb-2 dark:text-white ${"text-black"}`}
+        >
           <span>Shipping:</span>
           <span>${shipping.toFixed(2)}</span>
         </div>
-        <div className={`flex justify-between mb-4 font-bold ${"text-black"}`}>
+        <div
+          className={`flex justify-between mb-4 font-bold dark:text-white ${"text-black"}`}
+        >
           <span>Total:</span>
           <span>${total.toFixed(2)}</span>
         </div>
         <button
-          className={`w-full ${"bg-[#48CFCB] text-white"} font-bold py-2 rounded hover:bg-[#5AE3E0] transition duration-300`}
+          className={`w-full dark:bg-[#229799] ${"bg-[#48CFCB] text-white"} font-bold py-2 rounded hover:bg-[#5AE3E0] transition duration-300`}
         >
           Checkout
         </button>
