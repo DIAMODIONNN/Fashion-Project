@@ -112,11 +112,11 @@ const LayoutAdmin = ({
         />
         <Route
           path="/editUser/:userId"
-          element={<EditUser deleted={deleted} setDeleted={setDeleted} />}
+          element={<EditUser deleted={deleted} setDeleted={setDeleted} users={users}/>}
         />
         <Route
           path="/addUser"
-          element={<AddUsers deleted={deleted} setDeleted={setDeleted} />}
+          element={<AddUsers deleted={deleted} setDeleted={setDeleted} users={users}/>}
         />
 
         {/* Route for NotFound page*/}

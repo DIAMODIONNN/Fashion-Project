@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Button, Card, CardBody, Input, Select, Option, Typography } from "@material-tailwind/react";
+import React, { useState } from "react";
+import { Button, Card, Input, Select, Option, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const AddUsers = ({ setDeleted, deleted }) => {
+const AddUsers = ({ setDeleted, deleted , users}) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -18,18 +18,19 @@ const AddUsers = ({ setDeleted, deleted }) => {
   const navigate = useNavigate();
 
   const validateInputs = () => {
-    if (!user.name || user.name.length < 3) {
-      return { username: "Username must be at least 3 characters long." };
+    console.log()
+    if (!user.name || user.name.length < 3 || users.find((oneuser) => ( oneuser.name === user.name))) {
+      return { username: "Invalid Username. Please ensure the username is at least 3 characters long and not already in use." };
     } else if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
-      return { email: "Please enter a valid email address." };
+      return { email: "Invalid Email. Please provide a valid email address." };
     } else if (!user.password || user.password.length < 5) {
-      return { password: "Password should be at least 5 characters long." };
+      return { password: "Invalid Password. Please ensure the password is at least 5 characters long."};
     } else if (!user.img || !/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(user.img)) {
-      return { img: "Please provide a valid image URL." };
+      return { img: "Invalid Image Url. Please provide a valid image URL." };
     } else if (!user.gender) {
-      return { gender: "Please choose your Gender." };
+      return { gender: "Gender selection is required."};
     } else if (!user.role) {
-      return { role: "Please choose a Role." };
+      return { role: "Role selection is required." };
     }
     return {};
   };
@@ -74,7 +75,7 @@ const AddUsers = ({ setDeleted, deleted }) => {
                 className="bg-white"
                 value={user.name}
                 error={!!errors.username}
-                success={!!(user.name.length > 2)}
+                success={!!(user.name.length > 2 && !users.find((oneuser) => (oneuser.name === user.name)))}
                 onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
               {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
