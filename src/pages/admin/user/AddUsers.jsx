@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const AddNewUser = ({ setDeleted, deleted }) => {
+const AddUsers = ({ setDeleted, deleted }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -174,4 +174,4 @@ const AddNewUser = ({ setDeleted, deleted }) => {
   );
 };
 
-export default AddNewUser;
+export default AddUsers;
