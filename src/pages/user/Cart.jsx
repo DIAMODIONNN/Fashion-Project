@@ -137,7 +137,7 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleGoToProducts}
-                className={`px-4 py-2 dark:bg-[#229799] dark:bg-[#424242] ${"bg-[#48CFCB] text-white"} font-bold rounded hover:bg-[#5AE3E0] transition duration-300`}
+                className={`px-4 py-2 dark:bg-[#229799]  ${"bg-[#48CFCB] text-white"} font-bold rounded hover:bg-[#5AE3E0] transition duration-300`}
               >
                 EXPLORE OUR PRODUCTS
               </button>

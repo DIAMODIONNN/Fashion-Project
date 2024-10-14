@@ -169,10 +169,10 @@ const SignUp = ({ addUser, users }) => {
                 {errors.password}
               </Typography>
             )}
-            <Typography color="gray" className="mt-4 text-center font-normal">
+            <Typography color="gray" className="mt-4 text-center font-normal ">
               <Input
                 label="Image"
-                className="bg-white"
+                className="bg-white text-black dark:bg-[#424242] dark:text-white "
                 value={User.img}
                 error={!!errors.img}
                 onChange={(e) => setUser({ ...User, img: e.target.value })}
