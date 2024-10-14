@@ -19,6 +19,7 @@ const App = () => {
     localStorage.theme = mode;
     setMode("dark");
   };
+
   const setLight = () => {
     localStorage.theme = mode;
     setMode("light");
@@ -163,7 +164,8 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            <LayoutAdmin
+            loggedInUser?.role == "admin" ?
+            (<LayoutAdmin
               user={user}
               setUsers={setUsers}
               users={users}
@@ -179,8 +181,23 @@ const App = () => {
               mode={mode}
               setDark={setDark}
               setLight={setLight}
+            />) :(
+            <LayoutUser
+              products={products}
+              setProducts={setProducts}
+              addUser={addUser}
+              users={users}
+              addToCart={addToCart}
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+              handleLogin={handleLogin}
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+              mode={mode}
+              setDark={setDark}
+              setLight={setLight}
             />
-          }
+           )}
         />
       </Routes>
     </div>

@@ -45,7 +45,7 @@ const Login = ({ users, handleLogin }) => {
     if (foundUser) {
       localStorage.setItem("username", foundUser.name);
       handleLogin(foundUser);
-      navigate("/home"); //home
+      navigate("/");
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, userNotFound: true }));
     }
