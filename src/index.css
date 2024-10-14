@@ -10,6 +10,6 @@
   height: 100vh;
 }
 .active {
-  text-decoration: underline 3px #229799;
+  text-decoration: underline 3px #48cfcb;
   text-underline-offset: 10px;
 }

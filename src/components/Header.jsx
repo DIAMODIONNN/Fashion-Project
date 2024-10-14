@@ -69,7 +69,7 @@ function NavList({ mode, setDark, setLight, cartItems }) {
         to="/login"
         className="flex items-center hover:text-blue-500 transition-colors"
       >
-        <Button className="bg-[#229799] dark:text-black ">login</Button>
+        <Button className="bg-[#48CFCB] dark:text-black ">login</Button>
       </Link>
       <Typography as="li" variant="small" className="p-2">
         {mode == "light" ? (
@@ -85,7 +85,7 @@ const Header = ({ mode, setDark, setLight, cartItems }) => {
   const [openNav, setOpenNav] = useState(false);
 
   return (
-    <Navbar className="dark:bg-[#424242] mx-auto max-w-screen-3xl px-6 py-3">
+    <Navbar className="dark:bg-[#424242] border-white dark:border-[#424242] mx-auto max-w-screen-3xl px-6 py-3">
       <div className="flex justify-between text-blue-gray-900">
         <Link
           to="/"

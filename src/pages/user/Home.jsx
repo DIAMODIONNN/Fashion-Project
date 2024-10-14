@@ -10,14 +10,14 @@ const Home = () => {
         <img src={myImg} alt="" className="w-full h-screen object-cover" />
 
         <div className="absolute left-6 top-1/3 p-8 bg-opacity-75 flex flex-col lg:w-1/3 items-start gap-6 ">
-          <h1 className="font-bold text-[#229799] font-sans ">
+          <h1 className="font-bold text-[#48CFCB] font-sans ">
             SUMMER COLLECTION
           </h1>
-          <h1 className="text-5xl opacity-70 ">
+          <h1 className="text-5xl text-black ">
             Fall - Winter Collections 2023
           </h1>
 
-          <p className="text-sm opacity-70 font-sans">
+          <p className="text-sm text-black font-sans">
             A specialist label creating luxury essentials. Ethically crafted
             with an unwavering commitment to exceptional quality.
           </p>
@@ -29,7 +29,7 @@ const Home = () => {
             to="/Shop"
             className="p-1 font-medium"
           >
-            <button className="bg-[#48CFCB] text-gray-800  dark:bg-[#424242] dark:text-white py-2 px-4 rounded">
+            <button className="bg-[#48CFCB] text-white py-2 px-4 rounded">
               SHOP NOW
             </button>
           </Typography>
