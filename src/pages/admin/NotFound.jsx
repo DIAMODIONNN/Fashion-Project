@@ -8,7 +8,7 @@ const NotFound = () => {
   return (
     <div className="h-screen mx-auto grid place-items-center text-center  bg-gradient-to-r from-blue-200 to-indigo-500 px-8">
       <div>
-        <FlagIcon className="w-20 h-20 mx-auto" />
+        <FlagIcon className="w-20 h-20 mx-auto" color="black" />
         <Typography
           variant="h1"
           color="blue-gray"
