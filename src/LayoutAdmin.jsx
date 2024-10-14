@@ -120,7 +120,7 @@ const LayoutAdmin = ({
         />
 
         {/* Route for NotFound page*/}
-        <Route path="/NotFound" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
 
 
 
