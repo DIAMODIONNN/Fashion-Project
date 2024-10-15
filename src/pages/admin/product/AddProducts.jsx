@@ -9,7 +9,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddProducts = ({ setDeleted, deleted }) => {
+
+const AddProducts = ({ setDeleted, deleted , products}) => {
   const [product, setProduct] = useState({
     title: "",
     price: "",
@@ -26,7 +27,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
   const navigate = useNavigate();
 
   const validateInputs = () => {
-    if (!product.title || product.title.length < 3) {
+    if (!product.title || product.title.length < 3 || products.find((oneproduct) => ( oneproduct.title === product.title))) {
       return { title: "Title must be at least 3 characters long" };
     } else if (!product.price || isNaN(product.price) || product.price <= 0) {
       return { price: "Please enter a valid price." };
@@ -34,7 +35,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
       return { description: "Description should be at least 5 characters long." };
     } else if (!product.category) {
       return { category: "Category cannot be empty." };
-    } else if (!product.image) {
+    } else if (!product.image || !/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(product.image)) {
       return { image: "Please provide a valid image URL." };
     } else if (
       !product.rating.rate ||
@@ -89,7 +90,8 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 label="Title"
                 className="bg-white"
                 value={product.title}
-                error={errors.title}
+                error={!!errors.title}
+                success={!!(product.title.length > 2 && !products.find((onemore)=> onemore.title === product.title))}
                 onChange={(e) => setProduct({ ...product, title: e.target.value })}
               />
               {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
@@ -100,10 +102,11 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 label="Price"
                 className="bg-white"
                 value={product.price}
-                error={errors.price}
+                error={!!errors.price}
+                success={!!(!isNaN(product.price) && product.price >= 0 && product.price)}
                 onChange={(e) => setProduct({ ...product, price: e.target.value })}
               />
-              {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
+              {errors.price && !errors.title &&(<p className="text-red-500 text-sm mt-1">{errors.price}</p>)}
             </div>
 
             <div>
@@ -111,10 +114,11 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 label="Description"
                 className="bg-white"
                 value={product.description}
-                error={errors.description}
+                error={!!errors.description}
+                success = {!!(product.description.length > 4)}
                 onChange={(e) => setProduct({ ...product, description: e.target.value })}
               />
-              {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+              {errors.description && !errors.price && !errors.title && (<p className="text-red-500 text-sm mt-1">{errors.description}</p>)}
             </div>
 
             <div>
@@ -122,22 +126,23 @@ const AddProducts = ({ setDeleted, deleted }) => {
                 label="Category"
                 className="bg-white"
                 value={product.category}
-                error={errors.category}
+                error={!!errors.category}
+                success={!!(product.category)}
                 onChange={(e) => setProduct({ ...product, category: e.target.value })}
               />
-              {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
+              {errors.category && !errors.description && !errors.price && !errors.title && (<p className="text-red-500 text-sm mt-1">{errors.category}</p>)}
             </div>
 
             <div>
               <Input
                 label="Image"
                 className="bg-white"
-                type="url"
                 value={product.image}
-                error={errors.image}
+                error={!!errors.image}
+                success={!!(/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(product.image))}
                 onChange={(e) => setProduct({ ...product, image: e.target.value })}
               />
-              {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
+              {errors.image && !errors.category && !errors.description && !errors.price && !errors.title &&(<p className="text-red-500 text-sm mt-1">{errors.image}</p>)}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -146,7 +151,8 @@ const AddProducts = ({ setDeleted, deleted }) => {
                   label="Rate"
                   className="bg-white"
                   value={product.rating.rate}
-                  error={errors.rate}
+                  error={!!errors.rate}
+                  success={!!(!isNaN(product.rating.rate) && product.rating.rate >= 0 && product.rating.rate <=5 && product.rating.rate)}
                   onChange={(e) =>
                     setProduct({
                       ...product,
@@ -154,7 +160,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
                     })
                   }
                 />
-                {errors.rate && <p className="text-red-500 text-sm mt-1">{errors.rate}</p>}
+                {errors.rate && !errors.image && !errors.category && !errors.description && !errors.price && !errors.title &&( <p className="text-red-500 text-sm mt-1">{errors.rate}</p>)}
               </div>
 
               <div>
@@ -162,7 +168,8 @@ const AddProducts = ({ setDeleted, deleted }) => {
                   label="Count"
                   className="bg-white"
                   value={product.rating.count}
-                  error={errors.count}
+                  error={!!errors.count}
+                  success={!!(!isNaN(product.rating.count) && product.rating.count >= 0 && product.rating.count)}
                   onChange={(e) =>
                     setProduct({
                       ...product,
@@ -170,7 +177,7 @@ const AddProducts = ({ setDeleted, deleted }) => {
                     })
                   }
                 />
-                {errors.count && <p className="text-red-500 text-sm mt-1">{errors.count}</p>}
+                {errors.count && !errors.rate && !errors.image && !errors.category && !errors.description && !errors.price && !errors.title &&  (<p className="text-red-500 text-sm mt-1">{errors.count}</p>)}
               </div>
             </div>
           </div>

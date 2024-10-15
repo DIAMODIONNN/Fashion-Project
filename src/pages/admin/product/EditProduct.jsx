@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const EditProduct = ({ deleted, setDeleted }) => {
+const EditProduct = ({ deleted, setDeleted, products}) => {
   const [editProduct, setEditProduct] = useState({
     title: "",
     price: "",
@@ -41,25 +41,24 @@ const EditProduct = ({ deleted, setDeleted }) => {
   }, [productId]);
 
   const validateInputs = () => {
-    if (!editProduct.title || editProduct.title.length < 3) {
+    if (!editProduct.title || editProduct.title.length < 3 || products.find((oneProduct) => (oneProduct.title === editProduct.title && oneProduct.id !== productId))) {
       return { title: "Title must be at least 3 characters long and contain no spaces." };
-    }
-    if (!editProduct.price || isNaN(editProduct.price) || editProduct.price <= 0) {
+    } else if (!editProduct.price || isNaN(editProduct.price) || editProduct.price <= 0) {
       return { price: "Please enter a valid price." };
     }
-    if (!editProduct.description || editProduct.description.length < 5) {
+    else if (!editProduct.description || editProduct.description.length < 5) {
       return { description: "Description should be at least 5 characters long." };
     }
-    if (!editProduct.category) {
+    else if (!editProduct.category) {
       return { category: "Category cannot be empty." };
     }
-    if (!editProduct.image) {
+    else if (!editProduct.image || !/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(editProduct.image)) {
       return { image: "Please provide a valid image URL." };
     }
-    if (!editProduct.rating.rate || isNaN(editProduct.rating.rate) || editProduct.rating.rate < 0 || editProduct.rating.rate > 5) {
+    else if (!editProduct.rating.rate || isNaN(editProduct.rating.rate) || editProduct.rating.rate < 0 || editProduct.rating.rate > 5) {
       return { rate: "Rate must be a number between 0 and 5." };
     }
-    if (!editProduct.rating.count || isNaN(editProduct.rating.count) || editProduct.rating.count <= 0) {
+    else if (!editProduct.rating.count || isNaN(editProduct.rating.count) || editProduct.rating.count <= 0) {
       return { count: "Count must be a positive number." };
     }
 
@@ -111,12 +110,13 @@ const EditProduct = ({ deleted, setDeleted }) => {
                 size="lg"
                 label="Title"
                 value={editProduct.title}
-                onChange={(e) => setEditProduct({ ...editProduct, title: e.target.value })}
-                error={errors.title}
-                className="bg-white"
+                error = {!!errors.title}
+                success = {!!(editProduct.title.length > 2 && !products.find(oneProduct => oneProduct.title === editProduct.title && oneProduct.id !== productId))}
+                onChange = {(e) => setEditProduct({ ...editProduct, title: e.target.value })}
+                className = "bg-white"
               />
               {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
-            </div>
+              </div>
 
             <div>
               <Typography variant="small" className="mb-2 font-medium">
@@ -126,12 +126,13 @@ const EditProduct = ({ deleted, setDeleted }) => {
                 size="lg"
                 label="Price"
                 value={editProduct.price}
+                error={!!errors.price}
+                success={!!(!isNaN(editProduct.price) && editProduct.price >= 0 && editProduct.price)}
                 onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
-                error={errors.price}
                 className="bg-white"
               />
-              {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
-            </div>
+              {errors.price && !errors.title &&(<p className="text-red-500 text-sm mt-1">{errors.price}</p>)}
+              </div>
 
             <div>
               <Typography variant="small" className="mb-2 font-medium">
@@ -142,11 +143,12 @@ const EditProduct = ({ deleted, setDeleted }) => {
                 label="Description"
                 value={editProduct.description}
                 onChange={(e) => setEditProduct({ ...editProduct, description: e.target.value })}
-                error={errors.description}
+                error={!!errors.description}
+                success = {!!(editProduct.description.length > 4)}
                 className="bg-white"
               />
-              {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
-            </div>
+              {errors.description && !errors.price && !errors.title && (<p className="text-red-500 text-sm mt-1">{errors.description}</p>)}
+              </div>
 
             <div>
               <Typography variant="small" className="mb-2 font-medium">
@@ -158,10 +160,11 @@ const EditProduct = ({ deleted, setDeleted }) => {
                 value={editProduct.category}
                 onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}
                 error={errors.category}
+                success={!!(editProduct.category)}
                 className="bg-white"
               />
-              {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
-            </div>
+              {errors.category && !errors.description && !errors.price && !errors.title && (<p className="text-red-500 text-sm mt-1">{errors.category}</p>)}
+              </div>
 
             <div>
               <Typography variant="small" className="mb-2 font-medium">
@@ -172,29 +175,13 @@ const EditProduct = ({ deleted, setDeleted }) => {
                 label="Image"
                 type="url"
                 value={editProduct.image}
+                error={!!errors.image}
+                success={!!(/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(editProduct.image))}
                 onChange={(e) => setEditProduct({ ...editProduct, image: e.target.value })}
-                error={errors.image}
                 className="bg-white"
               />
-              {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
-            </div>
-
-            <div>
-              <Typography variant="small" className="mb-2 font-medium">
-                Count
-              </Typography>
-              <Input
-                size="lg"
-                label="Count"
-                value={editProduct.rating.count}
-                onChange={(e) =>
-                  setEditProduct({ ...editProduct, rating: { ...editProduct.rating, count: e.target.value } })
-                }
-                error={errors.count}
-                className="bg-white"
-              />
-              {errors.count && <p className="text-red-500 text-sm mt-1">{errors.count}</p>}
-            </div>
+              {errors.image && !errors.category && !errors.description && !errors.price && !errors.title &&(<p className="text-red-500 text-sm mt-1">{errors.image}</p>)}
+              </div>
 
             <div>
               <Typography variant="small" className="mb-2 font-medium">
@@ -204,13 +191,32 @@ const EditProduct = ({ deleted, setDeleted }) => {
                 size="lg"
                 label="Rate"
                 value={editProduct.rating.rate}
+                error={!!errors.rate}
+                success={!!(!isNaN(editProduct.rating.rate) && editProduct.rating.rate >= 0 && editProduct.rating.rate <=5 && editProduct.rating.rate)}
                 onChange={(e) =>
                   setEditProduct({ ...editProduct, rating: { ...editProduct.rating, rate: e.target.value } })
                 }
-                error={errors.rate}
                 className="bg-white"
               />
-              {errors.rate && <p className="text-red-500 text-sm mt-1">{errors.rate}</p>}
+              {errors.rate && !errors.image && !errors.category && !errors.description && !errors.price && !errors.title &&( <p className="text-red-500 text-sm mt-1">{errors.rate}</p>)}
+              </div>
+
+            <div>
+              <Typography variant="small" className="mb-2 font-medium">
+                Count
+              </Typography>
+              <Input
+                size="lg"
+                label="Count"
+                value={editProduct.rating.count}
+                error={!!errors.count}
+                success={!!(!isNaN(editProduct.rating.count) && editProduct.rating.count >= 0 && editProduct.rating.count)}
+                onChange={(e) =>
+                  setEditProduct({ ...editProduct, rating: { ...editProduct.rating, count: e.target.value } })
+                }
+                className="bg-white"
+              />
+              {errors.count && <p className="text-red-500 text-sm mt-1">{errors.count}</p>}
             </div>
           </div>
 

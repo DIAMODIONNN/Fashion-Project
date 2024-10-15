@@ -87,11 +87,11 @@ const LayoutAdmin = ({
         />
         <Route
           path="/editProduct/:productId"
-          element={<EditProduct deleted={deleted} setDeleted={setDeleted} />}
+          element={<EditProduct deleted={deleted} setDeleted={setDeleted} products={products}/>}
         />
         <Route
           path="/addProduct"
-          element={<AddProducts deleted={deleted} setDeleted={setDeleted} />}
+          element={<AddProducts deleted={deleted} setDeleted={setDeleted} products={products}/>}
         />
 
         {/* Route for User >> pages*/}
