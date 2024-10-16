@@ -1,4 +1,3 @@
-
 import { Button } from "@material-tailwind/react";
 import axios from "axios";
 import React, { useEffect } from "react";
@@ -37,7 +36,7 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
               <CardHeader
                 floated={false}
                 shadow={false}
-                className="w-full md:w-1/2 h-64 bg-cover bg-center bg-no-repeat"
+                className="w-full md:w-1/2 h-64 md:h-auto bg-cover bg-center bg-no-repeat"
                 style={{
                   backgroundImage: `url(${productDetails?.image})`,
                 }}
@@ -46,17 +45,29 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
               </CardHeader>
 
               <CardBody className="w-full md:w-1/2 p-6 flex flex-col justify-center bg-white">
-                <Typography variant="h4" className="mb-4 font-bold text-gray-900">
+                <Typography
+                  variant="h4"
+                  className="mb-4 font-bold text-gray-900 text-xl md:text-2xl"
+                >
                   {productDetails?.title}
                 </Typography>
-                <Typography variant="paragraph" className="mb-4 text-gray-600">
+                <Typography
+                  variant="paragraph"
+                  className="mb-4 text-gray-600 text-base md:text-lg"
+                >
                   {productDetails?.description}
                 </Typography>
-                <Typography variant="paragraph" className="mb-4 text-gray-700">
+                <Typography
+                  variant="paragraph"
+                  className="mb-4 text-gray-700 text-base md:text-lg"
+                >
                   Price:{" "}
                   <span className="font-semibold">${productDetails?.price}</span>
                 </Typography>
-                <Typography variant="paragraph" className="text-gray-700">
+                <Typography
+                  variant="paragraph"
+                  className="text-gray-700 text-base md:text-lg"
+                >
                   Rating: {productDetails?.rating?.rate} / 5 (
                   {productDetails?.rating?.count} reviews)
                 </Typography>
@@ -69,7 +80,7 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
           <Button
             onClick={() => navigate(-1)}
             color="cyan"
-            className="bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md"
+            className="bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md w-full md:w-auto"
           >
             BACK
           </Button>
