@@ -57,7 +57,7 @@ const AddProducts = ({ setDeleted, deleted , products}) => {
     if (Object.keys(validationErrors).length === 0) {
       axios({
         method: "post",
-        url: `${import.meta.env.VITE_API}/products`,
+        url: `${import.meta.env.VITE_PRODUCTS}`,
         data: product,
       }).then(() => {
         setDeleted(!deleted);

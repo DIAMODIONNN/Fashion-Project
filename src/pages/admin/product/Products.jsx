@@ -35,7 +35,7 @@ const Products = ({ products, deleted, setDeleted }) => {
         });
         axios({
           method: "delete",
-          url: `${import.meta.env.VITE_API}/products/${id}`,
+          url: `${import.meta.env.VITE_PRODUCTS}/${id}`,
         }).then(() => setDeleted(!deleted));
       }
     });

@@ -33,7 +33,7 @@ const Users = ({ users, deleted, setDeleted }) => {
         })
         axios({
           method : 'patch',
-          url : `${import.meta.env.VITE_API}/users/${id}`,
+          url : `${import.meta.env.VITE_USERS}/${id}`,
           data : {
             role : role === "admin" ? "user" : "admin"
           }
@@ -59,7 +59,7 @@ const Users = ({ users, deleted, setDeleted }) => {
         });
         axios({
           method: "delete",
-          url: `${import.meta.env.VITE_API}/users/${id}`,
+          url: `${import.meta.env.VITE_USERS}/${id}`,
         }).then(() => setDeleted(!deleted));
       }
     });

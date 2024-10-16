@@ -16,7 +16,7 @@ const ViewUser = ({ userDetails, setUserDetails }) => {
   const getUser = () => {
     axios({
       method: "get",
-      url: `${import.meta.env.VITE_API}/users/${userId}`,
+      url: `${import.meta.env.VITE_USERS}/${userId}`,
     })
       .then(({ data }) => {
         if (data.id) {

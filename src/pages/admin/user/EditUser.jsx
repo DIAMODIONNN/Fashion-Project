@@ -23,7 +23,7 @@ const EditUser = ({ deleted, setDeleted ,users}) => {
   const getUser = () => {
     axios({
       method: "get",
-      url: `${import.meta.env.VITE_API}/users/${userId}`,
+      url: `${import.meta.env.VITE_USERS}/${userId}`,
     })
       .then(({ data }) => {
         if (data.id) {
@@ -66,7 +66,7 @@ const EditUser = ({ deleted, setDeleted ,users}) => {
     if (Object.keys(validationErrors).length === 0) {
       axios({
         method: "put",
-        url: `${import.meta.env.VITE_API}/users/${userId}`,
+        url: `${import.meta.env.VITE_USERS}/${userId}`,
         data: editUser,
       }).then(() => {
         setDeleted(!deleted);
