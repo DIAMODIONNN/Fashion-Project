@@ -12,7 +12,7 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
   const getProduct = () => {
     axios({
       method: "get",
-      url: `http://localhost:3000/products/${productId}`,
+      url: `${import.meta.env.VITE_API}/products/${productId}`,
     })
       .then(({ data }) => {
         if (data.id) {

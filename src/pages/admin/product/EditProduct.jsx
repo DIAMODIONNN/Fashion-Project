@@ -24,7 +24,7 @@ const EditProduct = ({ deleted, setDeleted, products}) => {
   const getProduct = () => {
     axios({
       method: "get",
-      url: `http://localhost:3000/products/${productId}`,
+      url: `${import.meta.env.VITE_API}/products/${productId}`,
     })
       .then(({ data }) => {
         if (data.id) {
@@ -73,7 +73,7 @@ const EditProduct = ({ deleted, setDeleted, products}) => {
     if (Object.keys(validationErrors).length === 0) {
       axios({
         method: "put",
-        url: `http://localhost:3000/products/${productId}`,
+        url: `${import.meta.env.VITE_API}/products/${productId}`,
         data: editProduct,
       }).then(() => {
         setDeleted(!deleted);

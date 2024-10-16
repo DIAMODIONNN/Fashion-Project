@@ -39,7 +39,7 @@ const UserProfile = ({ setLoggedInUser }) => {
 
   const handleConfirmEdit = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API}/users/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

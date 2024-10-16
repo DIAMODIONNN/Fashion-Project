@@ -38,7 +38,7 @@ const App = () => {
   const getProduct = () => {
     axios({
       method: "get",
-      url: "http://localhost:3000/products",
+      url: `${import.meta.env.VITE_API}/products`,
     }).then(({ data }) => setProduct(data[data.length - 1]));
   };
 
@@ -49,7 +49,7 @@ const App = () => {
   const getProducts = () => {
     axios({
       method: "get",
-      url: "http://localhost:3000/products",
+      url: `${import.meta.env.VITE_API}/products`,
     })
       .then(({ data }) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
@@ -62,7 +62,7 @@ const App = () => {
   const getUser = () => {
     axios({
       method: "get",
-      url: "http://localhost:3000/users",
+      url: `${import.meta.env.VITE_API}/users`,
     }).then(({ data }) => setUser(data[data.length - 1]));
   };
   useEffect(() => {
@@ -72,7 +72,7 @@ const App = () => {
   const getUsers = () => {
     axios({
       method: "get",
-      url: "http://localhost:3000/users",
+      url: `${import.meta.env.VITE_API}/users`,
     })
       .then(({ data }) => setUsers(data))
       .catch((error) => console.error("Error fetching products:", error));
@@ -92,7 +92,7 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/users", newUser);
+      const response = await axios.post(`${import.meta.env.VITE_API}/users`, newUser);
       setUsers((prevUsers) => [...prevUsers, response.data]);
     } catch (error) {
       console.error("Error adding user:", error);

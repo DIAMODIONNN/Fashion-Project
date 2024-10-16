@@ -41,7 +41,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
     if (Object.keys(validationErrors).length === 0) {
       axios({
         method: "post",
-        url: "http://localhost:3000/users",
+        url: `${import.meta.env.VITE_API}/users`,
         data: user,
       }).then(_ => {
         setDeleted(!deleted);
