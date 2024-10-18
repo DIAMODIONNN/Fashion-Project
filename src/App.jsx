@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LayoutUser from "./LayoutUser";
 import LayoutAdmin from "./LayoutAdmin";
 import axios from "axios";
+
 const App = () => {
   const [user, setUser] = useState([]);
   const [users, setUsers] = useState([]);
@@ -13,11 +14,14 @@ const App = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [mode, setMode] = useState("light");
+
   const setDark = () => {
     localStorage.theme = mode;
     setMode("dark");
   };
+
   const setLight = () => {
     localStorage.theme = mode;
     setMode("light");
@@ -65,6 +69,7 @@ const App = () => {
       url: `${import.meta.env.VITE_USERS}`,
     }).then(({ data }) => setUser(data[data.length - 1]));
   };
+
   useEffect(() => {
     getUser();
   }, [deleted]);
@@ -77,6 +82,7 @@ const App = () => {
       .then(({ data }) => setUsers(data))
       .catch((error) => console.error("Error fetching products:", error));
   };
+
   useEffect(() => {
     getUsers();
   }, [deleted]);
@@ -92,7 +98,10 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_USERS}`, newUser);
+      const response = await axios.post(
+        `${import.meta.env.VITE_USERS}`,
+        newUser
+      );
       setUsers((prevUsers) => [...prevUsers, response.data]);
     } catch (error) {
       console.error("Error adding user:", error);
@@ -125,19 +134,33 @@ const App = () => {
   };
 
   const handleLogin = (user) => {
-    setLoggedInUser(user);
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
+    localStorage.setItem("loggedInUserId", user.id);
+    setLoggedInUser(user.id);
+    setIsAdmin(user.role === "admin");
   };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("loggedInUser");
-    if (storedUser) {
-      setLoggedInUser(JSON.parse(storedUser));
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    if (loggedInUserId) {
+      fetch(`http://localhost:3000/users/${loggedInUserId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setLoggedInUser(data.id);
+          setIsAdmin(data.role === "admin");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, []);
 
   return (
-    <div className="text-center  dark:bg-[#424242] bg-white ">
+    <div className="text-center dark:bg-[#424242] bg-white">
       <Routes>
         <Route
           path="/*"
@@ -162,7 +185,7 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            loggedInUser?.role == "admin" ? (
+            isAdmin ? (
               <LayoutAdmin
                 user={user}
                 setUsers={setUsers}

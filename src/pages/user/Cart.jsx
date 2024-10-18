@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { GiShoppingCart } from "react-icons/gi";
 import shoppingImage from "./images/man-shopping-supermarket_74855-7612.jpg";
 import { useNavigate } from "react-router-dom";
@@ -11,17 +11,14 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
   const handleGoToProducts = () => {
     navigate("/shop");
   };
-
   const subtotal = cartItems.reduce((acc, item) => {
-    const price = item.price ? item.price : 0;
-    const quantity = item.quantity ? item.quantity : 1;
+    const price = Number(item.price) || 0;
+    const quantity = item.quantity || 1;
     return acc + price * quantity;
   }, 0);
-
   const taxes = subtotal * 0.1;
   const shipping = 5.0;
   const total = subtotal + taxes + shipping;
-
   const handleIncreaseQuantity = (id) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
@@ -43,10 +40,12 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
   const handleRemoveFromCart = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
+
   return (
     <div
       className={`flex flex-col lg:flex-row justify-between p-4 dark:bg-[#424242] ${"bg-white"}`}
     >
+      {/* Cart Header */}
       <div className="w-full lg:w-2/3">
         <div className="flex justify-center items-center mt-10 text-center">
           <GiShoppingCart
@@ -59,62 +58,65 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
 
         {cartItems.length > 0 ? (
           <div className="mt-10">
-            {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className={`ml-5 flex items-center border dark:border-[#424242] border-white shadow-lg rounded-lg p-4 mb-4 dark:bg-[#424242] ${"bg-white"}`}
-              >
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="w-16 h-16 inline-block mr-4"
-                />
-                <div className="flex flex-col flex-grow">
+            {cartItems.map((item) => {
+              const price = Number(item.price) || 0;
+              const quantity = item.quantity || 1;
+              return (
+                <div
+                  key={item.id}
+                  className={`ml-5 flex items-center border dark:border-[#424242] border-white shadow-lg rounded-lg p-4 mb-4 dark:bg-[#424242] ${"bg-white"}`}
+                >
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="w-16 h-16 inline-block mr-4"
+                  />
+                  <div className="flex flex-col flex-grow">
+                    <span
+                      className={`font-semibold dark:text-white ${"text-black"}`}
+                    >
+                      {item.name}
+                    </span>
+                    <span className={`text-gray-600 ${"text-gray-600"}`}>
+                      ${price.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="flex items-center mx-4">
+                    <button
+                      className="border border-gray-400 rounded-lg p-2 flex items-center justify-center"
+                      onClick={() => handleDecreaseQuantity(item.id)}
+                    >
+                      <IoMdRemove
+                        className={`text-lg dark:text-white ${"text-black"}`}
+                      />
+                    </button>
+                    <span className={`mx-2 dark:text-white ${"text-black"}`}>
+                      {quantity}
+                    </span>
+
+                    <button
+                      className="border border-gray-400 rounded-lg p-2 flex items-center justify-center"
+                      onClick={() => handleIncreaseQuantity(item.id)}
+                    >
+                      <IoMdAdd
+                        className={`text-lg dark:text-white ${"text-black"}`}
+                      />
+                    </button>
+                  </div>
                   <span
                     className={`font-semibold dark:text-white ${"text-black"}`}
                   >
-                    {item.name}
+                    ${(price * quantity).toFixed(2)}
                   </span>
-                  <span className={`text-gray-600 ${"text-gray-600"}`}>
-                    ${item.price ? item.price.toFixed(2) : "0.00"}
-                  </span>
-                </div>
-                <div className="flex items-center mx-4">
-                  <button
-                    className="border border-gray-400 rounded-lg p-2 flex items-center justify-center"
-                    onClick={() => handleDecreaseQuantity(item.id)}
-                  >
-                    <IoMdRemove
-                      className={`text-lg dark:text-white ${"text-black"}`}
-                    />
-                  </button>
-                  <span className={`mx-2 dark:text-white ${"text-black"}`}>
-                    {item.quantity ? item.quantity : 1}
-                  </span>
-                  <button
-                    className="border border-gray-400 rounded-lg p-2 flex items-center justify-center"
-                    onClick={() => handleIncreaseQuantity(item.id)}
-                  >
-                    <IoMdAdd
-                      className={`text-lg dark:text-white ${"text-black"}`}
+
+                  <button onClick={() => handleRemoveFromCart(item.id)}>
+                    <FaTrashCan
+                      className={`ml-10 dark:text-white ${"text-black"}`}
                     />
                   </button>
                 </div>
-                <span
-                  className={`font-semibold dark:text-white ${"text-black"}`}
-                >
-                  $
-                  {(item.price * (item.quantity ? item.quantity : 1)).toFixed(
-                    2
-                  )}
-                </span>
-                <button onClick={() => handleRemoveFromCart(item.id)}>
-                  <FaTrashCan
-                    className={`ml-10 dark:text-white ${"text-black"}`}
-                  />
-                </button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="flex justify-center flex-col items-center mt-20">
@@ -137,7 +139,7 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleGoToProducts}
-                className={`px-4 py-2 dark:bg-[#229799]  ${"bg-[#48CFCB] text-white"} font-bold rounded hover:bg-[#5AE3E0] transition duration-300`}
+                className={`px-4 py-2 dark:bg-[#229799] ${"bg-[#48CFCB] text-white"} font-bold rounded hover:bg-[#5AE3E0] transition duration-300`}
               >
                 EXPLORE OUR PRODUCTS
               </button>
@@ -154,6 +156,7 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
         >
           Summary
         </h2>
+
         <div
           className={`flex justify-between mb-2 dark:text-white ${"text-black"}`}
         >
@@ -178,6 +181,7 @@ const Cart = ({ addToCart, cartItems, setCartItems }) => {
           <span>Total:</span>
           <span>${total.toFixed(2)}</span>
         </div>
+
         <button
           className={`w-full dark:bg-[#229799] ${"bg-[#48CFCB] text-white"} font-bold py-2 rounded hover:bg-[#5AE3E0] transition duration-300`}
         >

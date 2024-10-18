@@ -43,7 +43,7 @@ const Login = ({ users, handleLogin }) => {
     );
 
     if (foundUser) {
-      localStorage.setItem("username", foundUser.name);
+      localStorage.setItem("userId", foundUser.id);
       handleLogin(foundUser);
       navigate("/");
     } else {

@@ -7,11 +7,27 @@ const UserProfile = ({ setLoggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({});
   const [error, setError] = useState(null);
+
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (loggedInUser) {
-      setUser(loggedInUser);
-      setUserData(loggedInUser);
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    if (loggedInUserId) {
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/users/${loggedInUserId}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+          const data = await response.json();
+          setUser(data);
+          setUserData(data);
+        } catch (error) {
+          console.error(error);
+          setError(error.message);
+        }
+      };
+      fetchUserData();
     }
   }, []);
 
@@ -27,10 +43,10 @@ const UserProfile = ({ setLoggedInUser }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData({
-      ...userData,
+    setUserData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleEdit = () => {
@@ -39,7 +55,7 @@ const UserProfile = ({ setLoggedInUser }) => {
 
   const handleConfirmEdit = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_USERS}/${user.id}`, {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +70,7 @@ const UserProfile = ({ setLoggedInUser }) => {
       const updatedUser = await response.json();
       setIsEditing(false);
       setLoggedInUser(updatedUser);
-      localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+      localStorage.setItem("loggedInUserId", updatedUser.id);
       setUser(updatedUser);
       setUserData(updatedUser);
     } catch (error) {
@@ -113,7 +129,7 @@ const UserProfile = ({ setLoggedInUser }) => {
             value={userData.gender}
             onChange={handleChange}
             disabled={!isEditing}
-            className={`mt-1 w-full p-2 border dark:text-white text-black ${
+            className={`mt-1 w-full p-2 border ${
               isEditing
                 ? "border-gray-300 bg-white text-black"
                 : "border-transparent bg-gray-700 text-white"

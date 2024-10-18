@@ -8,8 +8,8 @@ const Shop = ({ products, addToCart, cartItems }) => {
   const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
-    const username = localStorage.getItem("username");
-    if (!username) {
+    const userId = localStorage.getItem("loggedInUserId");
+    if (!userId) {
       navigate("/login");
     } else {
       addToCart(product);
