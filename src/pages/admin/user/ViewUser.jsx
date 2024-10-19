@@ -33,9 +33,9 @@ const ViewUser = ({ userDetails, setUserDetails }) => {
   }, [userId]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-200 to-indigo-500 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-200 to-indigo-500 dark:from-gray-800 dark:to-gray-900 p-8">
       {userDetails && (
-        <Card className="w-96 shadow-lg rounded-lg overflow-hidden bg-white">
+        <Card className="w-96 shadow-lg rounded-lg overflow-hidden bg-white dark:bg-gray-800">
           <CardHeader className="h-60 mx-auto w-60 mt-4 rounded-full overflow-hidden shadow-md">
             <img
               src={userDetails?.img}
@@ -47,23 +47,23 @@ const ViewUser = ({ userDetails, setUserDetails }) => {
             <Typography
               variant="h4"
               color="blue-gray"
-              className="font-serif mb-2"
+              className="font-serif mb-2 dark:text-gray-300"
             >
               {userDetails?.name}
             </Typography>
-            <Typography color="blue-gray" className="font-extrabold font-serif">
+            <Typography color="blue-gray" className="font-extrabold font-serif dark:text-gray-300">
               Role: {userDetails?.role}
             </Typography>
-            <Typography color="blue-gray" className="font-extrabold font-serif">
+            <Typography color="blue-gray" className="font-extrabold font-serif dark:text-gray-300">
               Gender: {userDetails?.gender}
             </Typography>
-            <Typography color="blue-gray" className="font-extrabold font-serif">
+            <Typography color="blue-gray" className="font-extrabold font-serif dark:text-gray-300">
               Email: {userDetails?.email}
             </Typography>
             <Button
               onClick={() => navigate(-1)}
-              color="cyan"
-              className="mt-6  bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md"
+              
+              className="mt-6 bg-blue-600 hover:bg-blue-700 text-white transition  duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md dark:bg-gray-500 dark:hover:bg-gray-600"
             >
               BACK
             </Button>

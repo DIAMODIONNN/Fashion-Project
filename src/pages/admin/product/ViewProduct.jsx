@@ -28,10 +28,10 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
   }, [productId]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-200 to-indigo-500 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-r from-blue-200 to-indigo-500 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-4xl">
         {productDetails && (
-          <Card shadow={false} className="shadow-lg">
+          <Card shadow={false} className="shadow-lg dark:bg-gray-800">
             <div className="flex flex-col md:flex-row">
               <CardHeader
                 floated={false}
@@ -44,29 +44,29 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent" />
               </CardHeader>
 
-              <CardBody className="w-full md:w-1/2 p-6 flex flex-col justify-center bg-white">
+              <CardBody className="w-full md:w-1/2 p-6 flex flex-col justify-center bg-white dark:bg-gray-800">
                 <Typography
                   variant="h4"
-                  className="mb-4 font-bold text-gray-900 text-xl md:text-2xl"
+                  className="mb-4 font-bold text-gray-900 dark:text-gray-100 text-xl md:text-2xl"
                 >
                   {productDetails?.title}
                 </Typography>
                 <Typography
                   variant="paragraph"
-                  className="mb-4 text-gray-600 text-base md:text-lg"
+                  className="mb-4 text-gray-600 dark:text-gray-300 text-base md:text-lg"
                 >
                   {productDetails?.description}
                 </Typography>
                 <Typography
                   variant="paragraph"
-                  className="mb-4 text-gray-700 text-base md:text-lg"
+                  className="mb-4 text-gray-700 dark:text-gray-300 text-base md:text-lg"
                 >
                   Price:{" "}
                   <span className="font-semibold">${productDetails?.price}</span>
                 </Typography>
                 <Typography
                   variant="paragraph"
-                  className="text-gray-700 text-base md:text-lg"
+                  className="text-gray-700 dark:text-gray-300 text-base md:text-lg"
                 >
                   Rating: {productDetails?.rating?.rate} / 5 (
                   {productDetails?.rating?.count} reviews)
@@ -80,7 +80,7 @@ const ViewProduct = ({ productDetails, setProductDetails }) => {
           <Button
             onClick={() => navigate(-1)}
             color="cyan"
-            className="bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md w-full md:w-auto"
+            className="bg-blue-600 hover:bg-blue-700 text-white dark:bg-gray-500 dark:hover:bg-gray-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md w-full md:w-auto"
           >
             BACK
           </Button>

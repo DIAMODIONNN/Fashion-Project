@@ -65,23 +65,22 @@ const Users = ({ users, deleted, setDeleted }) => {
   };
 
   return (
-    <div className="w-full bg-gradient-to-r from-blue-200 to-indigo-500 py-10">
-      <div className="flex flex-col items-center bg-white max-w-7xl mx-auto p-4 md:p-8 shadow-lg rounded-lg">
-        <h1 className="mt-3 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-500 text-3xl md:text-5xl font-extrabold animate-pulse">
+    <div className="w-full bg-gradient-to-r from-blue-200 to-indigo-500 dark:from-gray-800 dark:to-gray-900 py-10">
+      <div className="flex flex-col items-center bg-white dark:bg-gray-800 max-w-7xl mx-auto p-4 md:p-8 shadow-lg rounded-lg">
+        <h1 className="mt-3 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-500 text-3xl md:text-5xl font-extrabold animate-pulse dark:from-gray-300 dark:to-gray-400">
           Welcome To Users
         </h1>
 
         <Link to={`/admin/adduser`}>
           <Button
-            variant="gradient"
-            color="blue"
-            className="mb-3 bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md"
+
+            className="mb-3 bg-blue-600 hover:bg-blue-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md "
           >
             Add New User
           </Button>
         </Link>
 
-        <Card className="h-full w-full bg-[#bae6fd]">
+        <Card className="h-full w-full bg-[#bae6fd] dark:bg-gray-800">
           <CardBody>
             <div className="overflow-x-auto">
               <table className="table-auto w-full text-left">
@@ -90,12 +89,14 @@ const Users = ({ users, deleted, setDeleted }) => {
                     {TABLE_HEAD.map((head) => (
                       <th
                         key={head}
-                        className={`bg-[#7dd3fc] p-4 ${head === "Operators" && "text-center"}`}
+                        className={`bg-[#7dd3fc] dark:bg-gray-700 p-4 ${
+                          head === "Operators" && "text-center"
+                        }`}
                       >
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-extrabold leading-5 opacity-70"
+                          className="font-extrabold leading-5 opacity-70 dark:text-gray-300"
                         >
                           {head}
                         </Typography>
@@ -105,12 +106,12 @@ const Users = ({ users, deleted, setDeleted }) => {
                 </thead>
                 <tbody>
                   {users.map(({ id, name, role }, index) => (
-                    <tr key={index} className="p-4">
+                    <tr key={index} className="p-4 dark:bg-gray-700">
                       <td className="py-4">
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-bold px-4 md:px-10"
+                          className="font-bold px-4 md:px-10 dark:text-gray-300"
                         >
                           {name}
                         </Typography>
@@ -119,7 +120,7 @@ const Users = ({ users, deleted, setDeleted }) => {
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal px-4"
+                          className="font-normal px-4 dark:text-gray-300"
                         >
                           {role}
                         </Typography>
@@ -127,14 +128,14 @@ const Users = ({ users, deleted, setDeleted }) => {
                       <td className="py-4 flex flex-col md:flex-row justify-center items-center gap-2">
                         <Link to={`/admin/edituser/${id}`}>
                           <Tooltip content="Edit User">
-                            <IconButton variant="text">
+                            <IconButton variant="text" className="dark:text-gray-300">
                               <PencilIcon className="h-4 w-4" />
                             </IconButton>
                           </Tooltip>
                         </Link>
                         <Link to={`/admin/viewuser/${id}`}>
                           <Button
-                            className="bg-indigo-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md rounded-full text-xs md:text-sm"
+                            className="bg-indigo-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md rounded-full text-xs md:text-sm dark:bg-gray-600 dark:hover:bg-gray-500"
                           >
                             View
                           </Button>
@@ -152,14 +153,14 @@ const Users = ({ users, deleted, setDeleted }) => {
                           <Button
                             color="cyan"
                             onClick={() => toggle({ role, id })}
-                            className="text-xs md:text-sm"
+                            className="text-xs md:text-sm dark:bg-gray-600 dark:hover:bg-gray-500"
                           >
                             Make it User
                           </Button>
                         ) : (
                           <Button
                             color="deep-purple"
-                            className="hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md text-xs md:text-sm"
+                            className="hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md text-xs md:text-sm dark:bg-gray-600 dark:hover:bg-gray-500"
                             onClick={() => toggle({ role, id })}
                           >
                             Make it Admin
@@ -177,7 +178,7 @@ const Users = ({ users, deleted, setDeleted }) => {
                         ) : (
                           <Button
                             color="red"
-                            className="hover:bg-black text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md text-xs md:text-sm"
+                            className="hover:bg-black text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md text-xs md:text-sm dark:bg-red-700 dark:hover:bg-red-600"
                             onClick={() => deleteUser({ name, id })}
                           >
                             DELETE

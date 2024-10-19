@@ -4,31 +4,30 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const AddUsers = ({ setDeleted, deleted , users}) => {
+const AddUsers = ({ setDeleted, deleted, users }) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
-    role: '', 
-    gender: '', 
-    img: '', 
+    role: '',
+    gender: '',
+    img: '',
   });
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const validateInputs = () => {
-    console.log()
-    if (!user.name || user.name.length < 3 || users.find((oneuser) => ( oneuser.name === user.name))) {
+    if (!user.name || user.name.length < 3 || users.find((oneuser) => (oneuser.name === user.name))) {
       return { username: "Invalid Username. Please ensure the username is at least 3 characters long and not already in use." };
     } else if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
       return { email: "Invalid Email. Please provide a valid email address." };
     } else if (!user.password || user.password.length < 5) {
-      return { password: "Invalid Password. Please ensure the password is at least 5 characters long."};
+      return { password: "Invalid Password. Please ensure the password is at least 5 characters long." };
     } else if (!user.img || !/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(user.img)) {
       return { img: "Invalid Image Url. Please provide a valid image URL." };
     } else if (!user.gender) {
-      return { gender: "Gender selection is required."};
+      return { gender: "Gender selection is required." };
     } else if (!user.role) {
       return { role: "Role selection is required." };
     }
@@ -43,7 +42,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
         method: "post",
         url: `${import.meta.env.VITE_USERS}`,
         data: user,
-      }).then(_ => {
+      }).then(() => {
         setDeleted(!deleted);
         Swal.fire({
           position: "center",
@@ -59,12 +58,12 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-200 to-indigo-500 min-h-screen flex justify-center items-center">
-      <Card color="transparent" shadow={false} className="p-6 bg-white max-w-lg w-full rounded-lg shadow-lg mt-6">
-        <Typography variant="h4" color="blue-gray" className="text-center mb-4">
+    <div className="bg-gradient-to-r from-blue-200 to-indigo-500 dark:from-gray-800 dark:to-gray-900 min-h-screen flex justify-center items-center">
+      <Card color="transparent" shadow={false} className="p-6 bg-white dark:bg-gray-800 max-w-lg w-full rounded-lg shadow-lg mt-6">
+        <Typography variant="h4" color="blue-gray" className="text-center mb-4 dark:text-gray-300">
           Add New User
         </Typography>
-        <Typography color="gray" className="text-center mb-8">
+        <Typography color="gray" className="text-center mb-8 dark:text-gray-400">
           Fill in the details of the new user.
         </Typography>
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -72,7 +71,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
             <div>
               <Input
                 label="Username"
-                className="bg-white"
+                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={user.name}
                 error={!!errors.username}
                 success={!!(user.name.length > 2 && !users.find((oneuser) => (oneuser.name === user.name)))}
@@ -84,7 +83,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
             <div>
               <Input
                 label="Email"
-                className="bg-white"
+                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={user.email}
                 error={!!errors.email}
                 success={!!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email))}
@@ -99,7 +98,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
               <Input
                 label="Password"
                 type="password"
-                className="bg-white"
+                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={user.password}
                 error={!!errors.password}
                 success={!!(user.password.length > 4)}
@@ -113,7 +112,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
             <div>
               <Input
                 label="Image"
-                className="bg-white"
+                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 value={user.img}
                 error={!!errors.img}
                 success={!!(/\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(user.img))}
@@ -132,7 +131,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
                   error={!!errors.gender}
                   success={!!user.gender}
                   onChange={(value) => setUser({ ...user, gender: value })}
-                  className="bg-white"
+                  className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 >
                   <Option value="Male">Male</Option>
                   <Option value="Female">Female</Option>
@@ -149,7 +148,7 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
                   error={!!errors.role}
                   success={!!user.role}
                   onChange={(value) => setUser({ ...user, role: value })}
-                  className="bg-white"
+                  className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 >
                   <Option value="user">User</Option>
                   <Option value="admin">Admin</Option>
@@ -162,10 +161,10 @@ const AddUsers = ({ setDeleted, deleted , users}) => {
           </div>
 
           <div className="flex justify-center items-center gap-4">
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md" type="submit">
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md" type="submit">
               Confirm
             </Button>
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md" onClick={() => navigate(-1)}>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 shadow-md" onClick={() => navigate(-1)}>
               Back
             </Button>
           </div>
