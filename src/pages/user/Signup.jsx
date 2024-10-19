@@ -16,6 +16,7 @@ const SignUp = ({ addUser, users }) => {
     password: "",
     gender: "",
     img: "",
+    role: "user",
   });
 
   const [errors, setErrors] = useState({

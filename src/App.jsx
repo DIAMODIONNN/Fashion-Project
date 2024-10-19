@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import LayoutUser from "./LayoutUser";
 import LayoutAdmin from "./LayoutAdmin";
 import axios from "axios";
-
 const App = () => {
   const [user, setUser] = useState([]);
   const [users, setUsers] = useState([]);
@@ -142,19 +141,14 @@ const App = () => {
   useEffect(() => {
     const loggedInUserId = localStorage.getItem("loggedInUserId");
     if (loggedInUserId) {
-      fetch(`http://localhost:3000/users/${loggedInUserId}`)
+      axios
+        .get(`${import.meta.env.VITE_USERS}/${loggedInUserId}`)
         .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch user data");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setLoggedInUser(data.id);
-          setIsAdmin(data.role === "admin");
+          setLoggedInUser(response.data.id);
+          setIsAdmin(response.data.role === "admin");
         })
         .catch((error) => {
-          console.error(error);
+          console.error("Failed to fetch user data:", error);
         });
     }
   }, []);
